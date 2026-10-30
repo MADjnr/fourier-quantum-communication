@@ -19,6 +19,12 @@ Excluded: virtual environments, bytecode/test caches, unrelated parent-workspace
 
 The historical `git_revision` in the simulation manifest refers to a parent workspace at execution time, with `git_dirty: true`; it does not identify the implementation source. The standalone repository's first commit records the actual exported source and evidence. No claim is made that the old revision alone can reproduce these results.
 
+## Later investigation and document integration
+
+The separate [phase-limit investigation](../investigations/phase_limit/README.md) adds its own protocols, JSON/NPZ evidence, logs, manifest, and two comparative figures. Its baseline source identifier is recorded in `output/results.json`; it does not replace the historical simulation provenance above. The original `results/` files remain unchanged. The reader-facing manuscript, classroom companion, READMEs, and explanatory docs now distinguish the archived one-plane comparison from the new spectral-amplitude diagnosis and fixed analytic two-plane result.
+
+The investigation report's statement that the original paper was preserved describes its initial run, before this subsequent document integration. Do not interpret it as a claim that the current manuscript is byte-identical to the archived manuscript. The 29 baseline artifact hashes concern the original results, not the current paper or all investigation files. Earlier internal review documents remain historical reviews of the baseline; the new study has separate verification evidence and is not externally peer reviewed.
+
 ## Scientific verification boundary
 
 The archived run passed 41 automated tests. Internal specification and code reviews assessed the ideal sampled focal-plane model. These are engineering checks, not peer review or experimental validation. The README distinguishes analytical identities, numerical checks, Monte Carlo observations, confidence intervals and untested physical assumptions.

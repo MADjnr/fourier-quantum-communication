@@ -10,9 +10,21 @@ The operator uses periodic FFT boundaries. A finite pupil clips power. Finite wi
 
 Production propagation is an exact sampled 4f Fourier operator. TorchOptics normalization and periodic Fresnel checks are separate reference checks, not a full finite-window lens-by-lens validation. Report validation status honestly when the dependency is unavailable.
 
-## Fundamental phase-only limit
+## Single-Fourier-plane phase-only limit
 
 A Fourier phase mask exp(iφ) preserves spectral modulus. For unit-normalized spectra U,V the unconstrained maximum overlap amplitude is bounded by the integral of |U||V|; equality requires phase alignment and compatible support. Arbitrary amplitude mismatches therefore cannot be corrected exactly. A pupil or occlusion discards photons; no passive phase can restore them. Normalized overlap can improve while throughput remains low. The deliberate half-plane obstruction and attenuation uses the original pre-loss unit input as reference.
+
+## Why a second phase plane changes the ceiling
+
+The [new controlled investigation](../investigations/phase_limit/REPORT.md) applies this bound to the ordinary, unoccluded nominal field: analytic overlap **0.452898099** attains the ceiling. This is a restriction of **where** correction acts, not a universal limit on phase-only optics. With unit target norm, `Qmax = (integral |PU||V|)^2` and `etamax = Qmax / integral |PU|^2`; use physical integration weights. An adaptive mask that aligns phase separately for each input is a bound, not a deployable fixed mask.
+
+For each axis, the grid-origin quadratic phase coefficient is `a = D ± A`. The continuum spectral intensity center is `q_c = k theta + 2 a d / w²`, and its variance is `(1+a²)/w²`. Defocus is the largest isolated nominal limitation, but tilt, displacement, and curvature interact; their losses are not additive. Moving the quadratic origin to the displaced beam center changes the physical model, not merely its implementation.
+
+An input/image-plane screen with phase `-k(theta_bar_x x + theta_bar_y y) - D_bar(x²+y²)/w² - A_bar(x²-y²)/w²`, followed by a Fourier-plane ramp `2 pi (d_bar_x X_F + d_bar_y Y_F)/(lambda f)`, removes nominal distortion. The positive ramp uses this repository's forward-FFT and inverse-image convention. Both screens are fixed before evaluation. The upstream screen reshapes the spectrum before the Fourier mask; this does not violate the bound for the original spectrum. Fresh mean Q rises from **0.449020 to 0.948633**; nominal Q is essentially one.
+
+For an ensemble of unit-power inputs, any fixed passive receiver has unconditional mean coupled power bounded by the largest eigenvalue of `rho = E[|u><u|]`. The reported empirical bounds use separate finite 256-input ensembles, not a population guarantee or confidence interval. Residual random mode diversity explains why a fixed two-plane correction does not reach unity on jittered inputs. Adaptation or multimode collection requires new receiver assumptions.
+
+The investigation checks finer pitch and larger window on 32 shared diagnostic inputs for analytic architectures and bounds. This is stronger than an FFT round-trip check but does not establish convergence for every retrained mask or a real lens train.
 
 ## Quadratures and noise
 
@@ -20,7 +32,7 @@ X=a+a†, P=(a−a†)/i, [X,P]=2i (ℏ=2). Vacuum variance is 1 SNU. Coherent d
 
 Y=√ηtotal Xrot + Z with Var(Z)=1+ξrec+vel; Var(Y)=ηtotal VA+1+ξrec+vel. Noise terms use disjoint PRNG streams and a separate vacuum-only calibration stream. Excess/electronic noise is receiver referred; no input-referred excess-noise interpretation is implied. Loss ports do not justify adding an independent unit vacuum contribution for each successive loss factor: coherent pure loss still has variance 1. Histograms divide both samples and analytic variances by the same measured calibration. Variance figure uses nominal SNU; its approximate Gaussian variance confidence intervals do not include calibration-estimation uncertainty.
 
-SNR=ηtotal VA/(1+ξrec+vel). I=½log₂(1+SNR) is classical mutual information for the matched rotated quadrature. The metrics also distinguish information about the unrotated Alice X when phase compensation is off. It is not a secret-key rate.
+SNR=ηtotal VA/(1+ξrec+vel). I=½log₂(1+SNR) is classical mutual information for the matched rotated quadrature. The metrics also distinguish information about the unrotated Alice X when phase compensation is off. The investigation averages this expression conditional on known realization-specific gain and phase compensation; it is not the rate of an unknown fading mixture. It is not a secret-key rate.
 
 ## Gaussian validation backend
 

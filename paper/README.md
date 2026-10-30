@@ -6,9 +6,9 @@
 - [Read the compiled paper](main.pdf)
 - [Editable LaTeX source](main.tex)
 - [Verification and evidence mapping](VERIFICATION.md)
-- [Four-page classroom speaking script (PDF)](classroom-presentation-script.pdf) — beginner-friendly story, analogies, and speaking cues for all ten figures in manuscript order; [editable source](classroom-presentation-script.tex). Read the paragraphs aloud while displaying the paper's figures; bracketed directions are presenter actions.
+- [Six-page classroom speaking script (PDF)](classroom-presentation-script.pdf) — beginner-friendly story, analogies, and speaking cues for the ten archived figures and the two new investigation figures; [editable source](classroom-presentation-script.tex). Read the paragraphs aloud while displaying the paper's figures; bracketed directions are presenter actions.
 
-The paper uses the actual `IEEEtran` journal class, a two-column layout, numbered equations/references, ten figures, and four evidence tables. It is a research manuscript, **not an IEEE publication, accepted submission, or externally peer-reviewed article**. No affiliations, emails, funding statements, or author-contribution claims were invented. Venue-specific requirements and author approval remain necessary before submission.
+The paper uses the actual `IEEEtran` journal class, a two-column layout, numbered equations/references, and evidence tables. It combines the archived baseline with a separately identified spectral-amplitude ceiling investigation. It is a research manuscript, **not an IEEE publication, accepted submission, or externally peer-reviewed article**. No affiliations, emails, funding statements, or author-contribution claims were invented. Venue-specific requirements and author approval remain necessary before submission.
 
 ## Scientific reading order
 
@@ -25,7 +25,18 @@ The paper uses the actual `IEEEtran` journal class, a two-column layout, numbere
 | 9 | `08_variance` | Theory/Monte Carlo variance and uncertainty |
 | 10 | `09_snr` | SNR and the complete efficiency budget |
 
-All images are included directly from `../results/figures/`; no original plots, numerical arrays, metrics, or source code were altered. Manuscript numbering is sequential even though the preserved filenames retain their original generation order.
+The original ten images are included directly from `../results/figures/`; the two new figures come from `../investigations/phase_limit/output/figures/`. No original plots, numerical arrays, metrics, or simulation source code were altered. Manuscript numbering is sequential even though the preserved filenames retain their original generation order.
+
+| New paper figure | Investigation asset | Role |
+|---|---|---|
+| 11 | `01_limit_diagnosis` | Fresh paired comparison, nominal ablations, spectral mismatch, jitter bound |
+| 12 | `02_architecture_and_controls` | Two-plane design, paired inputs, added loss, matched controls, seed blocks |
+
+## What the new investigation changes
+
+The archived 24-input result did not demonstrate trained superiority over analytic correction. The nominal analytic overlap **0.452898099** already saturates the single-Fourier-plane ceiling: phase adjustment there cannot reshape spectral magnitudes. A second phase screen at the input/image plane removes mean tilt and quadratic phase before the transform; a Fourier-plane ramp removes mean displacement. On **1,280 fresh inputs**, fixed analytic two-plane mean coupled power is **0.948633**, versus **0.449020** for one plane, with paired gain CI **[0.495002, 0.504224]**. These winning masks are analytic, not learned.
+
+The new evidence also includes tiny matched-training gains, convergence checks and a residual jitter bound. Primary architecture comparisons and exploratory follow-up controls are distinct. See the [investigation reading/reproduction guide](../investigations/phase_limit/README.md), [full report](../investigations/phase_limit/REPORT.md), and [panel guide](../docs/FIGURE_GUIDE.md). The old reports remain archival records, not summaries of the expanded study.
 
 ## Build
 
@@ -33,7 +44,7 @@ From this directory, with [Tectonic](https://tectonic-typesetting.github.io/) in
 
 ```sh
 tectonic --keep-logs main.tex
-# Build the separate four-page speaking script:
+# Build the separate speaking script:
 tectonic --keep-logs classroom-presentation-script.tex
 ```
 
@@ -41,4 +52,4 @@ The committed PDF was built with Tectonic 0.17.0. Its first build downloads the 
 
 ## Scope
 
-The paper retains the positive improvement over no correction **and the absence of demonstrated superiority over analytic correction**. Verification is numerical, not experimental. Passive phase conditioning does not reduce vacuum shot noise, restore lost photons, establish fabrication readiness, or calculate a secret-key rate. Limitations and provenance boundaries are explicit.
+The paper retains the archived positive improvement over no correction and lack of demonstrated trained superiority in that small test, while adding the strong two-plane analytic architecture result and the small fresh one-plane training gains. Verification is numerical, not experimental. Passive phase conditioning does not reduce vacuum shot noise, restore lost photons, establish fabrication readiness, or calculate a secret-key rate. Limitations and provenance boundaries are explicit.

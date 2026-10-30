@@ -2,7 +2,23 @@
 
 **A reproducible, simulation-only study of phase-only Fourier-plane correction, coherent receiver mode overlap, and quantum-limited homodyne detection.**
 
-> **Result, not a promise:** a trained mask improves held-out overlap over no correction in the tested distortion distribution. It does **not** demonstrate superiority over analytic phase correction. Passive masks do not reduce intrinsic vacuum shot noise or recover lost photons. **Secret key rate not calculated.**
+> **Result, not a promise:** the archived one-plane study supports correction over no correction, not superiority of its trained mask over analytic correction. A new controlled investigation identifies the **single Fourier-plane spectral-amplitude ceiling** and tests a **fixed analytic two-plane architecture**, raising fresh mean coupled power from **0.449020 to 0.948633**. This is an architecture improvement in an ideal simulation, not a learned-mask victory or hardware demonstration. Passive masks do not reduce vacuum shot noise or recover lost photons. **Secret key rate not calculated.**
+
+## Two evidence layers: preserved baseline and new investigation
+
+- **Archived baseline:** [`results/`](results/) remains unchanged, including its 24-input test, ten figures, and reports. The 0.469958 analytic / 0.470226 trained overlaps are test averages, **not** the nominal-field ceiling.
+- **New investigation:** [`investigations/phase_limit/`](investigations/phase_limit/) adds a [controlled report](investigations/phase_limit/REPORT.md), protocols, numerical evidence, and two comparative figures. On the nominal field the analytic overlap **0.452898099** already attains the exact single-plane bound. On 1,280 fresh shared test inputs, the adaptive one-plane oracle averages only **0.452322**; the fixed analytic mask averages **0.449020**.
+- **Physical change:** remove mean tilt, defocus, and astigmatism at the input (or relayed image) plane **before** Fourier transformation; use a Fourier-plane ramp to undo mean displacement. Both screens remain phase-only and fixed before testing. The upstream screen changes the spectrum that the original Fourier-plane-only mask could not reshape.
+- **Primary comparison:** mean coupled power `Q = T_opt × eta_mode` becomes **0.948633**, with paired gain **+0.499613**, 95% CI **[0.495002, 0.504224]**. Training-estimated rather than known nominal parameters give **0.947342**. At the baseline pupil, throughput is essentially unity, so Q and overlap coincide at displayed precision; this need not hold after insertion loss.
+- **Important qualifications:** matched follow-up training finds a statistically detectable but tiny one-plane gain (**+0.000125**), while the archived trained mask is slightly worse on the fresh sample. Jitter limits the fixed two-plane receiver; added-screen loss and hardware constraints still matter. Mean break-even additional transmission is **0.473334** (3.248 dB incremental loss), a scalar sensitivity assumption, not a measured device budget.
+
+![Spectral-amplitude ceiling and controlled diagnosis](investigations/phase_limit/output/figures/01_limit_diagnosis.png)
+
+![Two-plane architecture and controls](investigations/phase_limit/output/figures/02_architecture_and_controls.png)
+
+[Evidence and safe reproduction guide](investigations/phase_limit/README.md) · [Physics of the ceiling](docs/PHYSICS.md) · [Panel-by-panel figure guide](docs/FIGURE_GUIDE.md)
+
+The scientific story below preserves the original baseline before the new diagnosis. Different test-set means reflect different random draws, not replacement of the archive.
 
 [Read the scientific story](#scientific-story) · [Browse the complete report](results/report.md) · [Reproduce](#reproduce-the-study) · [Numerical evidence](#numerical-evidence) · [Limits](#scope-and-limitations)
 
@@ -10,9 +26,9 @@
 
 **Afam Madu and Tofayel Karim**, *Fourier-Domain Spatial-Mode Conditioning for Coherent Optical Communication: A Reproducible Numerical Study*.
 
-[Read the paper (PDF)](paper/main.pdf) · [Classroom speaking script (4-page PDF)](paper/classroom-presentation-script.pdf) · [LaTeX source](paper/main.tex) · [Build instructions and figure order](paper/README.md) · [Manuscript verification](paper/VERIFICATION.md)
+[Read the paper (PDF)](paper/main.pdf) · [Classroom speaking script (PDF)](paper/classroom-presentation-script.pdf) · [LaTeX source](paper/main.tex) · [Build instructions and figure order](paper/README.md) · [Manuscript verification](paper/VERIFICATION.md)
 
-The two-column IEEEtran manuscript integrates all ten plots in scientific reading order, with equations, results tables, verification evidence, and limitations. It is not an accepted IEEE publication or externally peer-reviewed article.
+The two-column IEEEtran manuscript integrates the ten archived plots and the two new investigation figures, with equations, results tables, verification evidence, and limitations. It is not an accepted IEEE publication or externally peer-reviewed article.
 
 ## At a glance
 
@@ -185,12 +201,12 @@ If Strawberry Fields cannot execute, the code records the error and explicitly l
 ## Scope and limitations
 
 - Ideal scalar paraxial focal-plane mapping, not full-vector Maxwell simulation or explicit lens-by-lens finite-distance propagation.
-- Independent numerical agreement does not replace grid, aperture, padding, and sampling convergence studies.
+- The investigation adds window/pitch convergence checks on 32 diagnostic inputs for analytic architectures and bounds; it does not retrain every optimized mask on every grid or establish realistic lens/aperture convergence.
 - Finite training/test sets; no universal claim across arbitrary distortions or mask constraints.
 - Baseline pupil clipping is negligible for most non-lossy cases; this is not a stress test of finite-aperture loss.
 - Phase compensation and calibrated noise are assumed as documented; practical estimation errors need separate study.
 - Confidence intervals are provided for selected statistics, not every plotted point or SNR estimator.
 - No measured device data, fabricated mask, calibrated phase-to-depth conversion, secure key rate, squeezing, or entanglement is claimed.
-- Next steps: sampling-convergence and larger independent-seed sweeps; quantized/feature-limited masks; measured aberration and fabrication calibration.
+- Next steps: calibrate and test the two-plane analytic architecture with measured transmission; quantized/feature-limited masks, alignment and bandwidth errors, and measured aberration distributions. Adaptive or multimode reception needs a separate measurement/control analysis.
 
 The repository is public for inspection. Public visibility alone does not grant an open-source license; no license has been selected yet.

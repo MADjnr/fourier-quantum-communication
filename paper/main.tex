@@ -19,7 +19,7 @@
 \maketitle
 
 \begin{abstract}
-Spatial-mode mismatch reduces the signal collected by a coherent receiver even when an optical field retains nearly all of its power. We investigate phase-only Fourier-plane conditioning in an ideal sampled scalar paraxial relay, separating optical throughput, normalized local-oscillator overlap, and quantum-limited homodyne statistics. A differentiable phase mask is trained on displaced, tilted, defocused, and astigmatic Gaussian fields and selected using independent validation data. On 24 held-out distortions, mean overlap is 0.431225 without correction, 0.469958 with fixed analytic phase alignment, and 0.470226 with the trained mask. The paired trained-minus-uncorrected improvement is 0.039001, with a 95\% Student-$t$ interval of [0.035802, 0.042199]; the corresponding interval relative to analytic correction includes zero. Thus, correction is supported for the tested distribution, but superiority of optimization is not demonstrated. Independent optical references, objective-gradient checks, 41 archived automated tests, and an executed Strawberry Fields Gaussian backend establish consistency with the stated numerical models. Pure-loss validation preserves coherent-state variance at one shot-noise unit. A deliberately occluded and attenuated field has throughput 0.061736 and a tight phase-only overlap ceiling of 0.243860, demonstrating a limitation that cannot be overcome by further phase optimization. All results are simulations: no experiment, fabricated device, squeezing, or secret-key rate is claimed.
+Spatial-mode mismatch reduces coherent receiver signal even at nearly unit optical throughput. We study phase-only conditioning in an ideal scalar Fourier relay, separating throughput, local-oscillator overlap, and homodyne noise. The preserved original baseline gives mean overlap 0.431225 without correction, 0.469958 with analytic correction, and 0.470226 with a trained mask on 24 held-out inputs; trained superiority over analytic correction is not established. A controlled investigation identifies the dominant limitation as spectral-amplitude mismatch inaccessible to a single Fourier-plane phase mask. Analytic correction attains the nominal ceiling of 0.452898. Ablations and matched training-size, iteration, and objective controls find only tiny additional single-plane gains. Adding a fixed input-plane tilt/quadratic corrector before the Fourier-plane displacement ramp raises mean coupled power from 0.449020 to 0.948633 on 1,280 fresh paired inputs, a gain of 0.499613 with 95\% Student-$t$ interval [0.495002, 0.504224]. Both masks are analytic: this is an architecture benefit, not learned superiority. Empirical ensemble bounds identify jitter as the residual limitation; continuum, sampling, and incremental-loss checks support the numerical diagnosis. The original Gaussian-backend validation preserves coherent-state vacuum variance, and the original attenuated/occluded case remains irrecoverable by Fourier-phase correction. These are model-conditional simulations, not hardware, observed communication-error, squeezing, or quantum-security results.
 \end{abstract}
 \begin{IEEEkeywords}
 Fourier optics, spatial-mode matching, phase-only modulation, coherent communication, homodyne detection, Gaussian quantum states, reproducible simulation.
@@ -32,9 +32,9 @@ This distinction motivates a carefully bounded question: can a single fixed phas
 
 The foundations are standard Fourier optics and Gaussian quantum optics \cite{goodman,weedbrook}. The purpose here is not to propose a new Fourier transform, optimization algorithm, or security protocol. Rather, it is to provide an inspectable numerical chain from sampled fields to receiver statistics, with an analytic comparator, held-out evaluation, and explicit failure conditions. A meaningful positive result must survive more than a visually improved intensity map. It must preserve physical normalization, separate training from evaluation, distinguish received signal from vacuum noise, and acknowledge what an ideal phase-only element cannot achieve.
 
-The contributions are fourfold. First, the implementation maintains physical sampling and separates normalized overlap from throughput throughout the propagation and detection calculations. Second, a train/validation/test comparison quantifies the improvement of fixed phase correction without asserting an unsupported advantage of numerical optimization. Third, independent numerical and backend checks document the boundary between verified computation and unverified apparatus assumptions. Fourth, an attainable spectral-magnitude bound establishes why an occlusion-and-attenuation failure case cannot be repaired even by a better phase mask.
+The contributions combine a preserved original baseline with a subsequent controlled investigation. The baseline maintains physical sampling, separates throughput from overlap, and verifies the optical-to-Gaussian-noise interface. The investigation asks why numerical optimization nearly matches analytic correction: an attainable spectral-magnitude bound identifies an architectural ceiling, factorial ablations expose interacting distortions, and matched optimization controls separate small statistical gains from large physical recovery. A fixed two-plane analytic architecture then changes the accessible spectral amplitudes before Fourier-plane correction, without requiring amplitude modulation or per-input adaptation.
 
-The remainder develops the optical model and its bound, describes optimization and sampling, presents the archived correction results, verifies the quantum-noise interface before interpreting homodyne performance, and discusses reproducibility and limitations. Every numerical result and figure is drawn from the existing archived baseline; no additional simulations are introduced for this manuscript.
+The remainder develops the model and bound, presents the original baseline optical and receiver results, and then integrates the new diagnosis, architecture comparison, and residual limits. The original ten figures and baseline numbers are preserved explicitly as historical evidence; the two investigation figures and fresh test results are additional evidence, not replacements for the original random sample.
 
 \section{Optical Model and Physical Normalization}
 \subsection{Ideal Focal-Plane Relay}
@@ -185,7 +185,7 @@ Pairing removes common between-realization variation from the comparison. These 
 
 A separate deterministic tolerance scan varies $d_x$ over 13 points from $-160$ to $220~\mu$m and $D$ over 11 points from 0 to 2.8 rad. Other parameters stay at their means and the masks are not retrained. This scan diagnoses dependence on two coordinates, rather than sampling a full six-dimensional uncertainty distribution.
 
-\section{Optical Correction Results}
+\section{Original Baseline: Optical Correction Results}
 \subsection{Representative Behavior}
 Figure~\ref{fig:comparison} and Table~\ref{tab:principal} show that the uncorrected representative field retains essentially unit throughput but has overlap 0.409409. Analytic correction increases it to 0.452898; the selected trained mask yields 0.452023. The representative analytic result is thus slightly better, consistent with its construction for that exact source. The remaining mismatch is not surprising: spectral phase alignment does not repair spectral magnitudes.
 
@@ -234,7 +234,7 @@ The selected checkpoint is initialization 2, iteration 54, with validation overl
 
 Table~\ref{tab:paired} gives the independent distribution statistics and all three archived paired comparisons. The trained-minus-uncorrected difference is positive throughout its 95\% interval. Analytic-minus-uncorrected correction also has a positive interval. In contrast, the trained-minus-analytic mean is only 0.000268, with interval $[-0.001372,0.001907]$. The available evidence supports phase correction for this distribution, but cannot establish that the trained mask is better than the fixed analytic comparator.
 
-The near equality is scientifically useful rather than an optimization failure that should be hidden. A representative analytic phase mask is a strong baseline for a relatively concentrated distribution of smooth distortions. A learned phase mask has more freedom, but freedom alone is not a measured benefit. Demonstrating a robust advantage would require different evidence, such as larger independent seed sweeps or a justified distribution where a single representative analytic phase is inadequate; those experiments are outside this archived study.
+The near equality is scientifically useful rather than an optimization failure that should be hidden. A representative analytic phase mask is a strong baseline for this distribution of smooth distortions. Freedom alone is not a measured benefit. Section~\ref{sec:investigation} supplies the subsequent larger seed sweep and physical diagnosis, while preserving this original result.
 
 \begin{table*}[!t]
 \caption{Independent Test Distribution and Paired Comparisons ($n=24$, Seed 303)}
@@ -297,7 +297,7 @@ Figure~\ref{fig:quantum} is deliberately presented before receiver performance. 
 
 The isolation boundary is also tested. If the backend interpreter is unavailable, times out, or exits unsuccessfully, the software records the error and labels an exact covariance-matrix fallback. Conversely, a backend that returns physically inconsistent moments fails validation rather than silently falling back. The committed evidence identifies actual Strawberry Fields execution, not fallback. Backend execution is an independent software consistency check against the Gaussian model, not experimental quantum validation.
 
-\section{Homodyne Statistics and Receiver Performance}
+\section{Original Baseline: Homodyne Statistics and Receiver Performance}
 \subsection{One-Quadrature Observation Model}
 Alice prepares independent zero-mean Gaussian variables $X_A,P_A$ with variance $V_A$. For residual LO angle $\theta$, define the matched variable
 \begin{equation}
@@ -371,8 +371,98 @@ which is classical mutual information for the matched variable. No reconciliatio
 
 In the lossy case the unconditional variance approaches the noise floor because less signal remains. This is a degradation, not a quantum enhancement. Improving mode overlap increases useful signal variance and SNR while leaving the intrinsic vacuum contribution unchanged. Passive conditioning neither creates squeezing nor restores photons removed by occlusion or attenuation.
 
+\section{Controlled Investigation: Ceiling and Architecture}
+\label{sec:investigation}
+\subsection{Fresh Paired Protocol}
+The preceding optical and homodyne figures are the original baseline, not new two-plane receiver simulations. The investigation independently reproduces its individual analytic and trained test overlaps to within $1.2\times10^{-15}$. Its primary comparison instead uses 1,280 fresh inputs: 256 independent draws at each seed 1303, 2303, 3303, 4303, and 5303. Every architecture sees the same draws and all masks are frozen before evaluation. New training and validation sets contain 128 inputs each (seeds 1101 and 1202). Known nominal parameters are shared by both analytic architectures; a training-only parameter-estimation control avoids using test inputs for calibration.
+
+We report coupled power $Q=\Topt\etam$ relative to incident unit power. At the default 3-mm pupil, transmission differs from unity by less than $3.7\times10^{-9}$ on the tested baseline inputs. Thus $Q$ and normalized overlap agree at displayed precision, but are not interchangeable for lossy controls. Intervals use Eq.~\eqref{eq:paired} with $n=1280$ and paired differences in $Q$. They quantify Monte Carlo uncertainty conditional on the specified Gaussian distribution and selected masks, not hardware or training-dataset uncertainty. The matched follow-up was declared after the primary run and is exploratory, as are the ablations; no multiplicity adjustment is applied.
+
+\begin{table*}[!t]
+\caption{Fresh Paired Investigation ($n=1280$): Coupled Power, Not Original 24-Input Means}
+\label{tab:fresh}
+\centering\small
+\begin{tabular}{lrrl}
+\toprule
+Method & Mean $Q$ & Gain vs. analytic & Paired 95\% interval\\
+\midrule
+Uncorrected & 0.408262 & $-0.040759$ & [$-0.041281$, $-0.040237$]\\
+One-plane analytic & 0.449020 & --- & Reference\\
+Original trained mask & 0.448737 & $-0.000284$ & [$-0.000403$, $-0.000165$]\\
+Retrained, best of three starts & 0.449144 & 0.000124 & [0.000098, 0.000150]\\
+Mean-power objective & 0.449146 & 0.000125 & [0.000097, 0.000153]\\
+Conditional-information objective & 0.449133 & 0.000113 & [0.000090, 0.000135]\\
+Adaptive one-plane oracle (bound) & 0.452322 & 0.003302 & [0.003043, 0.003561]\\
+Fixed two-plane analytic & 0.948633 & 0.499613 & [0.495002, 0.504224]\\
+Two planes, training-estimated means & 0.947342 & 0.498321 & [0.493391, 0.503251]\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Physical Ceiling and Distortion Ablations}
+Equation~\eqref{eq:bound} explains the plateau without relying on optimizer convergence. The nominal analytic overlap 0.452898099 attains the tight one-plane ceiling, while the original trained mask gives 0.452023122. An ensemble-trained mask can sacrifice nominal performance for other realizations. Even allowing a different ideal phase mask for every fresh input yields mean $Q=0.452322$, only 0.003302 above the fixed analytic comparator (Table~\ref{tab:fresh}). The latter reaches 99.270\% of that adaptive bound; 99.401\% of its deficit from unity is inaccessible to any phase adjustment confined to this Fourier plane on these inputs. These are performance-budget decompositions, not additive causal attributions.
+
+The continuum Gaussian provides an independent explanation. With $k=2\pi/\lambda$, $a_x=D+A$, and $a_y=D-A$, each Fourier-intensity marginal has center $q_{c,j}=k\alpha_j+2a_jd_j/w^2$ and variance $(1+a_j^2)/w^2$ in angular spatial frequency. The centered target has variance $1/w^2$. With no pupil clipping, their magnitude-overlap ceiling is
+\begin{equation}
+\eta_{\max}=\prod_{j=x,y}\frac{2\sqrt{1+a_j^2}}{2+a_j^2}
+\exp\!\left[-\frac{(k\alpha_jw+2a_jd_j/w)^2}{2(2+a_j^2)}\right].
+\label{eq:gaussbound}
+\end{equation}
+Tilt shifts the spectrum; quadratic phase broadens it and, for a displaced beam, adds a shift. Fourier-plane phase cannot change either magnitude effect.
+
+All 16 combinations of displacement, tilt, defocus, and astigmatism were ablated. Removed groups have both mean and jitter zeroed; retained groups share 256 random draws (seed 6303), and masks are recalibrated for each model. These are recalibrated-system comparisons, not interventions on one frozen controller. The nominal isolated ceilings are 1 for displacement, 0.908071 for tilt, 0.755025 for defocus, and 0.961275 for astigmatism. Defocus is the largest isolated limitation. Combined quadratic aberration gives 0.711532; adding displacement gives 0.559578, and adding tilt gives 0.452898. Losses interact and must not be summed. The all-distortion ablation ensemble gives fixed one-/two-plane means 0.439067/0.951064; these are a separate diagnostic sample, not the primary means. Changing the quadratic-phase origin to the displaced beam center raises the nominal ceiling to 0.686240, but changes the physical distortion model rather than correcting a numerical bug.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.98\textwidth]{../investigations/phase_limit/output/figures/01_limit_diagnosis.png}
+\caption{Controlled diagnosis from the saved investigation. (A) Fresh 1,280-input mean coupled powers with marginal 95\% mean intervals, not paired-gain intervals. (B) Selected nominal distortion-removal ceilings from the 16-combination ablation; no jitter is present in this panel. (C) Nominal Fourier-intensity horizontal marginals: upstream phase correction removes spectral shift/broadening. (D) A separate 256-input diagnostic ensemble with all jitter standard deviations scaled together, showing fixed architectures and adaptive one-plane/empirical fixed-unitary bounds. Oracle curves are bounds, not deployable fixed controllers; the empirical unitary curve is not a population confidence band.}
+\label{fig:diagnosis}
+\end{figure*}
+
+\subsection{Matched Optimization and Objective Controls}
+Broad stress tests use zero, random, and analytic initializations on the original 12/12 and expanded 128/128 splits; because several settings change, they do not isolate a training-size effect. The matched follow-up instead fixes analytic initialization, learning rate 0.04, a 128-input validation set at seed 1202, and the checkpoint-selection rule. Nested 12- and 128-input training sets at seed 1101 each receive 800 steps. Validation retains the analytic mask with 12 inputs; with 128, mean test $Q=0.449145615$, paired gain 0.000125213 with interval [0.000097383, 0.000153042]. Holding the 128/128 data fixed, 100 versus 800 steps selects iteration 45 and the identical mask. Longer training does not unlock a large gain.
+
+Under matched data, initialization, and 800 steps, overlap and coupled-power objectives give test means agreeing within $4\times10^{-15}$. Phase-independent throughput alone does not imply equivalence of ensemble objectives: input-dependent throughputs would weight inputs differently. Here the default pupil transmits essentially all power for every tested input. A conditional-information objective, $\mathbb{E}[\tfrac12\log_2(1+sQ)]$ with $s=T_{\rm ch}\eta_dV_A/(1+\xi_{\rm rec}+v_{\rm el})$, yields mean $Q=0.449132974$. Its held-out mean information is 0.583770076 bits per real quadrature use versus 0.583778156 for overlap training, a tiny negative difference. This gives no evidence that the overlap objective causes the physical plateau. The calculation assumes Gaussian modulation, known realization-conditioned gain, and phase compensation; it is neither an unknown-fading-mixture rate nor a secret-key rate.
+
+The original trained mask is slightly worse than analytic on the fresh set: gain $-0.000283698$, interval [$-0.000402759$, $-0.000164637$]. This does not contradict the inconclusive original 24-input interval: the random samples differ. Conversely, the matched 128-input improvement is statistically detectable but physically small. Neither result should be conflated with the architecture-scale gain.
+
+\subsection{Two Conjugate Phase Planes}
+Place a fixed phase screen at the input plane or its relayed image:
+\begin{align}
+\psi_{\rm in}(x,y)&=-k(\bar\alpha_xx+\bar\alpha_yy)\nonumber\\
+&\quad-\bar D(x^2+y^2)/w^2-\bar A(x^2-y^2)/w^2.
+\end{align}
+After the Fourier transform, apply a displacement-canceling ramp
+\begin{equation}
+\phi_F(X_F,Y_F)=\frac{2\pi}{\lambda f}(\bar d_xX_F+\bar d_yY_F).
+\end{equation}
+The positive sign follows the negative-exponent forward FFT and inverse-image convention. The inverse relay then couples to the unchanged target/LO. Both screens are phase-only and fixed; the upstream screen changes spectral magnitudes before the Fourier-plane mask acts. The nominal quadratic powers correspond to thin-phase focal lengths 46.714 and 140.141 mm in orthogonal axes, plus tilt compensation. These specify phase power, not an engineered lens layout.
+
+Nominal $Q$ reaches 0.9999999995 on the original grid. Fresh mean coupling rises from 0.449020 to 0.948633, with paired gain 0.499613 and interval [0.495002, 0.504224], a factor 2.11267. Means estimated from training inputs alone give 0.947342. The input screen alone gives 0.794000, so Fourier-plane displacement correction remains useful. The winning two-plane masks are analytic: the evidence favors changed correction-plane placement, not optimization over the strongest analytic architecture.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.98\textwidth]{../investigations/phase_limit/output/figures/02_architecture_and_controls.png}
+\caption{Fixed two-plane architecture and controls. Top: input/image-plane tilt and quadratic correction, followed by a Fourier displacement ramp and inverse relay. (A) Each point pairs the same one of 1,280 inputs across architectures. (B) Added scalar power transmission multiplies two-plane $Q$; the shaded band is an approximate pointwise 95\% paired-mean interval, not a simultaneous confidence band or measured insertion loss. (C) Matched training/step/objective controls show gains of order $10^{-4}$; bars have no uncertainty bars. (D) Five separate 256-input seed-block means and their empirical unitary bounds; these bounds are not population confidence limits.}
+\label{fig:twoplane}
+\end{figure*}
+
+\subsection{Residual Jitter, Loss Budget, and Sampling Checks}
+A fixed lossless receiver cannot map distinct random modes to the same output mode while preserving inner products. For unit-normalized inputs, $\rho=\mathbb{E}[|u\rangle\langle u|]$ and fixed unitary $W$,
+\begin{equation}
+\mathbb{E}|\langle\ell|W|u\rangle|^2\leq\lambda_{\max}(\rho).
+\label{eq:ensemblebound}
+\end{equation}
+The unconditional coupled-power bound also holds for a fixed passive contraction. The five 256-input empirical ensembles have ceilings 0.94686--0.95525, compared with corresponding two-plane scores 0.94483--0.95370. These separate finite-ensemble bounds are not a confidence interval or an asserted population bound. Scaling jitter upward lowers both attainable coupling and two-plane performance (Fig.~\ref{fig:diagnosis}D). Residual mode diversity, rather than the original Fourier-plane amplitude restriction, is now the principal limitation. An independent 100,000-draw continuum calculation (seed 9303, no FFT) gives mean two-plane coupling 0.949291 with interval [0.949037, 0.949545], consistent with the fresh FFT result.
+
+For additional power transmission $\tau$ relative to the original architecture, $Q_{\rm new}=\tau Q_{\rm two}$. Mean break-even is $\tau=0.473334$, or 3.248 dB incremental loss. At 90\% transmission, mean $Q=0.853770$ and the paired gain interval is [0.400243, 0.409257]; at 50\%, mean $Q=0.474317$ and interval [0.021104, 0.029489]. Mean break-even does not guarantee improvement for every input. This scalar sensitivity model excludes quantization, pixelation, diffraction efficiency, alignment errors, added aberrations, finite lens apertures, and bandwidth effects. Smaller-pupil controls likewise require $Q$ as well as overlap: for a 0.3-mm pupil on the first seed block, one-plane mean overlap is 0.803867 but mean $Q$ only 0.346230. Photon rejection is not increased signal collection.
+
+Sampling checks use the same 32 diagnostic inputs (seed 8303), not the primary test set. The configurations $(N,\Delta x)$ are $(128,12~\mu\mathrm{m})$, $(256,6~\mu\mathrm{m})$, $(256,12~\mu\mathrm{m})$, and $(512,6~\mu\mathrm{m})$: they separately refine pitch and double the window from 1.536 to 3.072 mm. Mean one-plane $Q$ changes by less than $2.5\times10^{-8}$, from 0.4563987809 to 0.4563987566; two-plane values range from 0.9370671341 to 0.9370671334. Enlarging the window brings continuum-bound and two-plane diagnostics to machine precision. These checks validate the analytic architectures and bounds for these inputs, not retraining convergence of every optimized mask or a physical apparatus.
+
 \section{Verification: Evidence and Its Boundaries}
 Table~\ref{tab:verification} organizes the checks by the property actually tested. The archived test log records 41 passed tests with 14 dependency deprecation warnings; the internal specification and code reviews record no skips, including execution of the isolated backend integration test. These are local automated and engineering checks, not external peer review or experimental certification.
+
+The investigation verification adds eight tests, for 49 passing tests in the combined suite. These check phase-bound attainment, nominal two-plane correction, independent continuum formulas, direct-versus-spectral propagation, finite-difference gradients, normalization, and the empirical ensemble bound. All 29 original manifest artifact hashes remain unchanged. The new sampling diagnostics extend, rather than retroactively alter, the original verification record.
 
 \begin{table*}[!t]
 \caption{Verification Categories, Archived Evidence, and Interpretation Limits}
@@ -407,6 +497,8 @@ Finally, artifact checks test persistence and internal consistency rather than s
 \section{Reproducibility and Data Availability}
 The implementation, configurations, tests, archived numerical arrays, reports, and ten PNG/SVG figure pairs are available in the public repository \cite{repository}. This paper uses the unchanged figures under \path{results/figures/}; their presentation order is 01, 02, 03, 04, 05, 06, 10, 07, 08, and 09, yielding sequential manuscript Figs.~1--10. Quantitative claims are traceable to \path{results/metrics.json}, \path{results/config.json}, \path{results/tables/cases.csv}, and \path{results/arrays/data.npz}. The phase map is additionally exported as \texttt{optimized\_phase\_rad.npy}. Arrays should be loaded with \texttt{allow\_pickle=False}.
 
+The added investigation is recorded separately under \path{investigations/phase_limit/}. Its primary and exploratory follow-up protocols, report, and saved \path{output/results.json} and \path{output/followup.json} support Section~\ref{sec:investigation}. Per-input scores and frozen masks are archived in NPZ files; the two PNG figures under its \path{output/figures/} are included unchanged as Figs.~\ref{fig:diagnosis} and~\ref{fig:twoplane}. The investigation records baseline revision \texttt{2c681a6}; this is distinct from the pre-manuscript source export identified below. Rebuilding the manuscript consumes this saved evidence and does not rerun either experiment.
+
 The supplied Linux setup uses project-local Python 3.11.12 environments with exact dependency freezes. The main numerical environment pins TorchOptics 0.4.0 and CPU PyTorch 2.5.1; the separate backend environment records Strawberry Fields 0.23.0, NumPy 1.26.4, and SciPy 1.11.4. Its isolation addresses dependency compatibility rather than changing the physical model. A main-environment manifest that lists Strawberry Fields as absent is consistent with successful execution in the separate environment. Mutable online documentation is not a substitute for these version records.
 
 From the repository root, the documented workflow is:
@@ -426,9 +518,9 @@ Version pinning and successful local execution are not proof of a clean-host rei
 
 \section{Limitations and Implications for Physical Systems}
 \subsection{Physical and Statistical Scope}
-The strongest numerical agreement in this work is agreement with a deliberately idealized operator model. Scalar paraxial propagation excludes polarization coupling and vectorial effects. The inverse-image convention excludes explicit lens aberrations beyond the prescribed input phase. Periodic Fourier boundaries, source renormalization, and finite sampling require a window/pitch/padding convergence study before tolerance values can be interpreted as apparatus predictions. The largest represented paraxial angle is approximately 0.06458 rad, but that coordinate extent alone is not an error estimate for the approximation.
+The strongest numerical agreement in this work is agreement with a deliberately idealized operator model. Scalar paraxial propagation excludes polarization coupling and vectorial effects. The inverse-image convention excludes explicit lens aberrations beyond the prescribed input phase. The investigation tests window and pitch convergence for analytic architectures on 32 diagnostic inputs; it does not validate every optimized mask, arbitrary apertures, or hardware tolerances. Periodic boundaries and source renormalization remain modeling assumptions. The largest represented paraxial angle is approximately 0.06458 rad, but that coordinate extent alone is not an error estimate for the approximation.
 
-Baseline pupil clipping is negligible for the ordinary source cases, so their unit throughput should not be read as a realistic insertion-loss budget. The deliberately lossy case exposes the effect of amplitude damage, but a single damage pattern is not a characterization of arbitrary scattering, obscuration, or turbulence. The normal distortion distribution has no empirically calibrated parameter correlations or tails. Its small training and test sets support only the stated conditional claim.
+Baseline pupil clipping is negligible for the ordinary source cases, so their unit throughput should not be read as a realistic insertion-loss budget. The deliberately lossy case exposes amplitude damage, but a single pattern does not characterize arbitrary scattering, obscuration, or turbulence. The normal distortion distribution has no empirically calibrated parameter correlations or tails. The larger fresh paired set narrows Monte Carlo uncertainty, not uncertainty in that assumed distribution. Follow-up significance does not establish a practically important learned advantage.
 
 The trained phase map is high dimensional relative to the available training examples, and model selection uses a small validation set. The held-out paired intervals quantify variation across test distortions for this selected mask, not uncertainty over optimizer seeds, distribution estimation, or hardware implementation. The deterministic scan is complementary but not a substitute for statistical coverage. No per-point uncertainty bars are supplied for the quantum figure, no receiver SNR estimator interval is provided, and the displayed variance intervals omit calibration uncertainty and multiple-comparison adjustments.
 
@@ -437,12 +529,14 @@ Internal review identifies nonblocking engineering limitations outside the check
 
 A continuous phase array in radians does not specify a fabricated diffractive element. A computer-generated hologram would require wavelength- and material-dependent phase-depth calibration, feature-size constraints, aperture and alignment design, diffraction-efficiency accounting, and measured fabrication error. A thin-film lithium-niobate implementation would additionally require a physically justified architecture for accessing or synthesizing the Fourier transformation; a slab or star-coupler concept is not established by a bulk-relay schematic. No etch-depth values, fabricated mask, or measured transfer function are reported here.
 
-A useful next investigation would first establish spatial sampling convergence, then evaluate additional independent distortion/training seeds, followed by quantized and feature-limited masks with measured loss and phase errors. These are proposed future studies, not results of the archived baseline. Any quantum-communication security claim would separately require a protocol, calibrated measurement model, adversarial analysis, and finite-size treatment. Better coherent SNR is not by itself a security proof.
+A useful next experiment would calibrate an input-plane tilt/quadratic corrector, retain Fourier displacement compensation, and measure coupled power and total transmission on the same perturbation sequence. The strongest two-plane analytic receiver should be the comparator before claiming learned superiority. Quantization, feature limits, measured loss/phase errors, and repeated training-dataset uncertainty remain open. Gains much closer to unity would require stabilization, adaptive estimation/correction, or multiple-mode collection; adaptive operation needs a new control and noise-budget analysis. Any quantum-security claim separately requires a protocol, calibrated measurement model, adversarial analysis, and finite-size treatment. Neither the coupling improvement nor conditional Gaussian information is a security proof or an observed BER improvement.
 
 \section{Conclusion}
 An ideal sampled Fourier-plane phase mask improves coherent receiver mode matching relative to no correction under the archived displacement, tilt, defocus, and astigmatism distribution. The independent mean overlap rises from 0.431225 to 0.470226, with a positive paired improvement interval. A fixed analytic mask achieves 0.469958, and the trained-minus-analytic interval includes zero: optimization is not demonstrated to be superior.
 
-The optical-to-statistical interpretation depends on separating throughput, normalized overlap, and quantum noise. Independent optical references, gradient checks, automated tests, and an executed Gaussian backend establish numerical consistency within that framework. Pure loss attenuates coherent means without suppressing vacuum variance. The deliberate loss case has a strict spectral-magnitude overlap ceiling and a low coupled-power ceiling even for optimal phase alignment, so neither more training nor a different phase-only mask can undo its photon loss. These results support a reproducible baseline for mode-conditioning research, while leaving experimental validation, sampling convergence, fabrication, and quantum security explicitly unresolved.
+The controlled investigation identifies why this baseline plateaus: its nominal analytic mask already attains the 0.452898 single-Fourier-plane ceiling, imposed by spectral-amplitude mismatch. Ablations reveal interacting quadratic phase, displacement, and tilt effects; matched optimization controls recover only tiny gains. Changing the architecture to fixed phase-only correction in two conjugate planes raises fresh mean coupled power from 0.449020 to 0.948633 on 1,280 paired inputs, with gain interval [0.495002, 0.504224]. This is analytic architecture improvement, not evidence that learning outperforms analytic correction. Jitter-driven ensemble bounds, independent continuum calculations, sampling checks, and a scalar insertion-loss budget qualify the result.
+
+Throughput, normalized overlap, and quantum noise remain distinct. The original Gaussian-backend checks show that pure loss attenuates coherent means without suppressing vacuum variance; the occluded/attenuated baseline remains photon-loss limited. The added optical investigation neither changes those noise identities nor demonstrates quantum enhancement or security. Hardware implementation, realistic loss and calibration, distribution validation, and experimental communication performance remain unresolved.
 
 \begin{thebibliography}{9}
 \bibitem{goodman}

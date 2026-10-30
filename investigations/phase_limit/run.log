@@ -1,0 +1,45 @@
+TRAIN long_original12 0
+TRAIN long_original12 1
+TRAIN long_original12 2
+TRAIN expanded128 0
+TRAIN expanded128 1
+TRAIN expanded128 2
+TRAIN power
+TRAIN information
+HISTORICAL REPRODUCTION
+FRESH TEST
+TEST seed 1303
+TEST seed 2303
+TEST seed 3303
+TEST seed 4303
+TEST seed 5303
+FACTORIAL ABLATION
+JITTER SWEEP
+GRID CONVERGENCE
+PUPIL AND LOSS
+{
+  "fresh": {
+    "analytic": 0.4490204021958191,
+    "archived_optimized": 0.4487367044270937,
+    "uncorrected": 0.4082615201812855,
+    "two_plane": 0.9486333516210854,
+    "long_original12": 0.4487713582238613,
+    "expanded128": 0.44914445991963403,
+    "power": 0.4491456147011088,
+    "information": 0.44913297378702416,
+    "two_plane_estimated": 0.9473417314074275,
+    "adaptive_one_plane_oracle": 0.4523224044868607
+  },
+  "primary_difference": {
+    "n": 1280,
+    "mean": 0.49961294942526624,
+    "std": 0.08408230942483715,
+    "ci95": [
+      0.4950023338342213,
+      0.5042235650163112
+    ],
+    "min": 0.09641993856290265,
+    "max": 0.6616233001473277
+  },
+  "runtime_seconds": 107.60801577568054
+}
