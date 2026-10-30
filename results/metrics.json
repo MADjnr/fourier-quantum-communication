@@ -1,0 +1,412 @@
+{
+  "config": {
+    "grid": {
+      "n": 128,
+      "dx": 1.2e-05,
+      "wavelength": 1.55e-06,
+      "focal_length": 0.1
+    },
+    "waist": 0.00022,
+    "pupil_radius": 0.003,
+    "distortion_mean": {
+      "displacement_x": 9e-05,
+      "displacement_y": -3.5e-05,
+      "tilt_x": 0.00065,
+      "tilt_y": -0.00025,
+      "defocus": 1.4,
+      "astigmatism": 0.7
+    },
+    "distortion_std": {
+      "displacement_x": 1.8e-05,
+      "displacement_y": 1.2e-05,
+      "tilt_x": 0.0001,
+      "tilt_y": 8e-05,
+      "defocus": 0.25,
+      "astigmatism": 0.18
+    },
+    "optimization": {
+      "iterations": 100,
+      "learning_rate": 0.08,
+      "initializations": 3,
+      "train_size": 12,
+      "validation_size": 12,
+      "test_size": 24,
+      "train_seed": 101,
+      "validation_seed": 202,
+      "test_seed": 303,
+      "initialization_seed": 404
+    },
+    "homodyne": {
+      "n_symbols": 100000,
+      "modulation": 4.0,
+      "xi_rec": 0.02,
+      "v_el": 0.01,
+      "seed": 505,
+      "compensate_phase": true
+    },
+    "channel_transmission": 0.8,
+    "detector_efficiency": 0.9,
+    "lossy_transmission": 0.08,
+    "torch_threads": 2
+  },
+  "cases": {
+    "ideal": {
+      "eta_mode": 0.9999999999999205,
+      "T_opt": 0.9999999999999205,
+      "c_real": 0.9999999999999603,
+      "c_imag": -1.2165998676088918e-18,
+      "phase": -1.2165998676089401e-18,
+      "power": 0.9999999999999205,
+      "eta_total": 0.7199999999998855,
+      "T_channel": 0.8,
+      "eta_detector": 0.9,
+      "homodyne": {
+        "n_symbols": 100000,
+        "phase_compensated": true,
+        "lo_phase_rad": -1.2165998676089401e-18,
+        "variance_theory": 3.909999999999542,
+        "variance_empirical": 3.9282310288150093,
+        "variance_ci95": [
+          3.893798393533326,
+          3.962663664096693
+        ],
+        "noise_variance": 1.0331689569560099,
+        "vacuum_calibration_variance": 1.0047461741917325,
+        "calibrated_variance_empirical": 3.909675030089139,
+        "snr_theory": 2.796116504853924,
+        "snr_empirical": 2.7784522669852505,
+        "mutual_information_bits": 0.9622621350619824,
+        "seed": 505,
+        "mutual_information_reference": "Alice rotated quadrature X_A*cos(theta)-P_A*sin(theta)",
+        "snr_alice_x_theory": 2.796116504853924,
+        "mutual_information_alice_x_bits": 0.9622621350619824,
+        "snr_empirical_kind": "oracle component variance ratio; not receiver-inferred",
+        "conditional_bin": {
+          "variable": "rotated_alice",
+          "lower": -0.2,
+          "upper": 0.2,
+          "count": 8093
+        },
+        "scatter_kind": "Alice prepared X/P ensemble and Bob single measured quadrature; not simultaneous X/P detection"
+      }
+    },
+    "distorted": {
+      "eta_mode": 0.40940867856940905,
+      "T_opt": 0.9999999999084651,
+      "c_real": 0.5022254936653642,
+      "c_imag": 0.3964570999263228,
+      "phase": 0.6682443868701075,
+      "power": 0.9999999999084651,
+      "eta_total": 0.2947742485429924,
+      "T_channel": 0.8,
+      "eta_detector": 0.9,
+      "homodyne": {
+        "n_symbols": 100000,
+        "phase_compensated": true,
+        "lo_phase_rad": 0.6682443868701075,
+        "variance_theory": 2.2090969941719694,
+        "variance_empirical": 2.211312099183664,
+        "variance_ci95": [
+          2.1919289971088007,
+          2.230695201258527
+        ],
+        "noise_variance": 1.0364252972494705,
+        "vacuum_calibration_variance": 1.0013404257433802,
+        "calibrated_variance_empirical": 2.208351967356175,
+        "snr_theory": 1.144754363273757,
+        "snr_empirical": 1.139162798978383,
+        "mutual_information_bits": 0.5504062133310866,
+        "seed": 506,
+        "mutual_information_reference": "Alice rotated quadrature X_A*cos(theta)-P_A*sin(theta)",
+        "snr_alice_x_theory": 1.144754363273757,
+        "mutual_information_alice_x_bits": 0.5504062133310866,
+        "snr_empirical_kind": "oracle component variance ratio; not receiver-inferred",
+        "conditional_bin": {
+          "variable": "rotated_alice",
+          "lower": -0.2,
+          "upper": 0.2,
+          "count": 7947
+        },
+        "scatter_kind": "Alice prepared X/P ensemble and Bob single measured quadrature; not simultaneous X/P detection"
+      }
+    },
+    "analytic": {
+      "eta_mode": 0.45289809916399565,
+      "T_opt": 0.9999999999084651,
+      "c_real": 0.6729770420779565,
+      "c_imag": 8.583068848049076e-18,
+      "phase": 1.2753880610172179e-17,
+      "power": 0.9999999999084651,
+      "eta_total": 0.3260866313682286,
+      "T_channel": 0.8,
+      "eta_detector": 0.9,
+      "homodyne": {
+        "n_symbols": 100000,
+        "phase_compensated": true,
+        "lo_phase_rad": 1.2753880610172179e-17,
+        "variance_theory": 2.334346525472914,
+        "variance_empirical": 2.3439287999304086,
+        "variance_ci95": [
+          2.323383255408659,
+          2.3644743444521583
+        ],
+        "noise_variance": 1.0298773394796776,
+        "vacuum_calibration_variance": 1.0100157032741446,
+        "calibrated_variance_empirical": 2.3206855025443156,
+        "snr_theory": 1.266355849973703,
+        "snr_empirical": 1.2711610544767633,
+        "mutual_information_bits": 0.590187201251335,
+        "seed": 507,
+        "mutual_information_reference": "Alice rotated quadrature X_A*cos(theta)-P_A*sin(theta)",
+        "snr_alice_x_theory": 1.266355849973703,
+        "mutual_information_alice_x_bits": 0.590187201251335,
+        "snr_empirical_kind": "oracle component variance ratio; not receiver-inferred",
+        "conditional_bin": {
+          "variable": "rotated_alice",
+          "lower": -0.2,
+          "upper": 0.2,
+          "count": 8004
+        },
+        "scatter_kind": "Alice prepared X/P ensemble and Bob single measured quadrature; not simultaneous X/P detection"
+      }
+    },
+    "optimized": {
+      "eta_mode": 0.45202312195360556,
+      "T_opt": 0.9999999999084651,
+      "c_real": 0.5836140790939557,
+      "c_imag": 0.3337929427608073,
+      "phase": 0.5195324797683624,
+      "power": 0.9999999999084651,
+      "eta_total": 0.3254566477768054,
+      "T_channel": 0.8,
+      "eta_detector": 0.9,
+      "homodyne": {
+        "n_symbols": 100000,
+        "phase_compensated": true,
+        "lo_phase_rad": 0.5195324797683624,
+        "variance_theory": 2.3318265911072213,
+        "variance_empirical": 2.3331984411247526,
+        "variance_ci95": [
+          2.3127469528151976,
+          2.3536499294343076
+        ],
+        "noise_variance": 1.0255570409597106,
+        "vacuum_calibration_variance": 1.0050801817134891,
+        "calibrated_variance_empirical": 2.3214052804693153,
+        "snr_theory": 1.263909311754584,
+        "snr_empirical": 1.2677951856265028,
+        "mutual_information_bits": 0.5894080837442585,
+        "seed": 508,
+        "mutual_information_reference": "Alice rotated quadrature X_A*cos(theta)-P_A*sin(theta)",
+        "snr_alice_x_theory": 1.263909311754584,
+        "mutual_information_alice_x_bits": 0.5894080837442585,
+        "snr_empirical_kind": "oracle component variance ratio; not receiver-inferred",
+        "conditional_bin": {
+          "variable": "rotated_alice",
+          "lower": -0.2,
+          "upper": 0.2,
+          "count": 7990
+        },
+        "scatter_kind": "Alice prepared X/P ensemble and Bob single measured quadrature; not simultaneous X/P detection"
+      }
+    },
+    "lossy": {
+      "eta_mode": 0.20199914665776833,
+      "T_opt": 0.06173619714127656,
+      "c_real": 0.3203545264770134,
+      "c_imag": 0.31523344369444184,
+      "phase": 0.777341100947271,
+      "power": 0.06173619714127656,
+      "eta_total": 0.008978874581112208,
+      "T_channel": 0.8,
+      "eta_detector": 0.9,
+      "homodyne": {
+        "n_symbols": 100000,
+        "phase_compensated": true,
+        "lo_phase_rad": 0.777341100947271,
+        "variance_theory": 1.0659154983244488,
+        "variance_empirical": 1.0616998241416182,
+        "variance_ci95": [
+          1.0523935683345804,
+          1.071006079948656
+        ],
+        "noise_variance": 1.026205042434513,
+        "vacuum_calibration_variance": 0.9964815384885348,
+        "calibrated_variance_empirical": 1.065448563906168,
+        "snr_theory": 0.03486941584897945,
+        "snr_empirical": 0.03507742615666014,
+        "mutual_information_bits": 0.024724366957608906,
+        "seed": 509,
+        "mutual_information_reference": "Alice rotated quadrature X_A*cos(theta)-P_A*sin(theta)",
+        "snr_alice_x_theory": 0.03486941584897945,
+        "mutual_information_alice_x_bits": 0.024724366957608906,
+        "snr_empirical_kind": "oracle component variance ratio; not receiver-inferred",
+        "conditional_bin": {
+          "variable": "rotated_alice",
+          "lower": -0.2,
+          "upper": 0.2,
+          "count": 7847
+        },
+        "scatter_kind": "Alice prepared X/P ensemble and Bob single measured quadrature; not simultaneous X/P detection"
+      }
+    }
+  },
+  "optimization": {
+    "gradient_check": {
+      "autograd": -0.029008464656462465,
+      "finite_difference": -0.029008464658142327,
+      "absolute_error": 1.6798611113255646e-12,
+      "tolerance": 3.000846465814233e-07,
+      "passed": true,
+      "step": 1e-05,
+      "coordinate": [
+        64,
+        64
+      ],
+      "objective": "actual batched normalized pupil overlap"
+    },
+    "selected_initialization": 2,
+    "selected_iteration": 54,
+    "validation_eta": 0.45577814173119763,
+    "runs": [
+      {
+        "initialization": 0,
+        "seed": 404,
+        "best_validation_eta": 0.4557665714118575,
+        "best_iteration": 91
+      },
+      {
+        "initialization": 1,
+        "seed": 405,
+        "best_validation_eta": 0.45577401785641913,
+        "best_iteration": 73
+      },
+      {
+        "initialization": 2,
+        "seed": 406,
+        "best_validation_eta": 0.45577814173119763,
+        "best_iteration": 54
+      }
+    ],
+    "runtime_seconds": 4.833204987458885,
+    "objective": "mean normalized eta_mode across training realizations",
+    "checkpoint_selection": "validation only",
+    "seeds": {
+      "train_seed": 101,
+      "validation_seed": 202,
+      "test_seed": 303,
+      "initialization_seed": 404
+    }
+  },
+  "torchoptics_validation": {
+    "version": "0.4.0",
+    "integration": "Production ideal focal-plane relay uses TorchOptics Field.modulate and functional implementation FFT kernels (torch aliases), with physical spacing; independent NumPy reference; additional ASM_FRESNEL API audit",
+    "power_error": 0.0,
+    "overlap_error": 4.440892098500626e-16,
+    "fresnel_relative_error": 4.1217672805341716e-16,
+    "fresnel_distance_m": 0.001,
+    "fresnel_boundary": "periodic, asm_pad_factor=0"
+  },
+  "security_statement": "Secret key rate not calculated",
+  "sampling": {
+    "dx_m": 1.2e-05,
+    "dxF_m": 0.00010091145833333333,
+    "wavelength_m": 1.55e-06,
+    "focal_length_m": 0.1,
+    "grid_n": 128,
+    "fourier_mapping": "x_F=lambda*f*f_x",
+    "maximum_represented_paraxial_angle_rad": 0.06458333333333333,
+    "fourier_field_power_factor": 0.11891612903225807
+  },
+  "test_distribution": {
+    "distorted": {
+      "eta_mode_mean": 0.43122537919600296,
+      "eta_mode_std": 0.07035367669572098,
+      "eta_mode_sem": 0.014360884119437707,
+      "T_opt_mean": 0.9999999998853261,
+      "n": 24,
+      "seed": 303
+    },
+    "analytic": {
+      "eta_mode_mean": 0.46995832689811845,
+      "eta_mode_std": 0.07046627570034483,
+      "eta_mode_sem": 0.014383868295010515,
+      "T_opt_mean": 0.9999999998853261,
+      "n": 24,
+      "seed": 303
+    },
+    "optimized": {
+      "eta_mode_mean": 0.47022592862497076,
+      "eta_mode_std": 0.07211611950625305,
+      "eta_mode_sem": 0.014720641251657727,
+      "T_opt_mean": 0.9999999998853261,
+      "n": 24,
+      "seed": 303
+    }
+  },
+  "paired_test_improvements": {
+    "optimized_minus_analytic": {
+      "mean_difference": 0.0002676017268523091,
+      "sem": 0.0007924393615889917,
+      "ci95": [
+        -0.0013716839892943646,
+        0.0019068874429989829
+      ],
+      "n": 24,
+      "method": "paired Student-t interval across independent test distortions",
+      "improvement_demonstrated": false,
+      "conclusion": "no demonstrated improvement"
+    },
+    "optimized_minus_distorted": {
+      "mean_difference": 0.039000549428967836,
+      "sem": 0.0015461183296999184,
+      "ci95": [
+        0.03580215997962573,
+        0.042198938878309944
+      ],
+      "n": 24,
+      "method": "paired Student-t interval across independent test distortions",
+      "improvement_demonstrated": true,
+      "conclusion": "positive improvement established"
+    },
+    "analytic_minus_distorted": {
+      "mean_difference": 0.03873294770211553,
+      "sem": 0.0020196367570620775,
+      "ci95": [
+        0.034555010754337034,
+        0.042910884649894024
+      ],
+      "n": 24,
+      "method": "paired Student-t interval across independent test distortions",
+      "improvement_demonstrated": true,
+      "conclusion": "positive improvement established"
+    }
+  },
+  "quantum_validation": {
+    "backend": "Strawberry Fields gaussian (isolated subprocess)",
+    "reason": "SF Gaussian engine validated vacuum and coherent pure-loss moments; empirical homodyne arrays are seeded NumPy samples.",
+    "max_mean_error": 0.006569454376203154,
+    "max_variance_error": 0.007760076949348438,
+    "n_symbols": 100000,
+    "sf_versions": {
+      "python": "3.11.12",
+      "numpy": "1.26.4",
+      "scipy": "1.11.4",
+      "strawberryfields": "0.23.0"
+    },
+    "sf_states_checked": 22,
+    "sf_max_mean_error": 2.220446049250313e-16,
+    "sf_max_covariance_error": 0.0
+  },
+  "lossy_failure": {
+    "description": "Half-plane occlusion and neutral attenuation before Fourier mask; input-power reference remains pre-loss unity",
+    "power_upper_bound": 0.08,
+    "observed_throughput": 0.06173619714127656,
+    "cannot_recover_lost_photons": true,
+    "eta_mode_upper_bound": 0.24385958327526588,
+    "coupled_power_upper_bound": 0.015054963307871354,
+    "post_pupil_power": 0.061736197141276525,
+    "pre_relay_power": 0.06220567735654518,
+    "method": "Cauchy-Schwarz Fourier magnitude overlap with pupil; attainable by phase alignment"
+  }
+}

@@ -1,0 +1,785 @@
+{
+  "utc": "2026-10-30T02:26:06.300905+00:00",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "src.run",
+    "--config",
+    "configs/baseline.yaml"
+  ],
+  "python": "3.11.12 (main, Apr  9 2025, 04:04:00) [Clang 20.1.0 ]",
+  "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.39",
+  "packages": {
+    "numpy": "1.26.4",
+    "matplotlib": "3.9.2",
+    "torch": "2.5.1+cpu",
+    "torchoptics": "0.4.0",
+    "PyYAML": "6.0.3",
+    "strawberryfields": "not installed",
+    "scipy": "1.11.4"
+  },
+  "git_revision": "023963c05e1c34f77e382bd4c19fc8b24f4ad6ed",
+  "git_dirty": true,
+  "report_only": false,
+  "figures": [
+    {
+      "number": 1,
+      "title": "4f architecture and model boundary",
+      "stem": "01_architecture"
+    },
+    {
+      "number": 2,
+      "title": "Spatial intensity and phase",
+      "stem": "02_fields"
+    },
+    {
+      "number": 3,
+      "title": "Correction comparison and residual phase",
+      "stem": "03_comparison"
+    },
+    {
+      "number": 4,
+      "title": "Optimized Fourier-plane phase mask",
+      "stem": "04_mask"
+    },
+    {
+      "number": 5,
+      "title": "Training and held-out validation",
+      "stem": "05_learning"
+    },
+    {
+      "number": 6,
+      "title": "Misalignment and aberration robustness",
+      "stem": "06_robustness"
+    },
+    {
+      "number": 7,
+      "title": "Calibrated one-quadrature homodyne",
+      "stem": "07_homodyne"
+    },
+    {
+      "number": 8,
+      "title": "Variance and uncertainty",
+      "stem": "08_variance"
+    },
+    {
+      "number": 9,
+      "title": "SNR and efficiency budget",
+      "stem": "09_snr"
+    },
+    {
+      "number": 10,
+      "title": "Gaussian pure-loss validation",
+      "stem": "10_quantum"
+    }
+  ],
+  "array_schema": {
+    "x_m": {
+      "shape": [
+        128
+      ],
+      "dtype": "float64"
+    },
+    "xF_m": {
+      "shape": [
+        128
+      ],
+      "dtype": "float64"
+    },
+    "source": {
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "complex128"
+    },
+    "lo": {
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "complex128"
+    },
+    "fourier_source": {
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "complex128"
+    },
+    "mask_analytic": {
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "float64"
+    },
+    "mask_optimized": {
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "float64"
+    },
+    "train_curves": {
+      "shape": [
+        3,
+        100
+      ],
+      "dtype": "float64"
+    },
+    "validation_curves": {
+      "shape": [
+        3,
+        100
+      ],
+      "dtype": "float64"
+    },
+    "pupil": {
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "float64"
+    },
+    "ideal_output": {
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "complex128"
+    },
+    "ideal_fourier": {
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "complex128"
+    },
+    "ideal_homodyne": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "ideal_alice": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "ideal_residual": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "ideal_p": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "ideal_rotated_alice": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "ideal_signal": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "ideal_calibration": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "ideal_conditional_y": {
+      "shape": [
+        8093
+      ],
+      "dtype": "float64"
+    },
+    "ideal_histogram_edges": {
+      "shape": [
+        81
+      ],
+      "dtype": "float64"
+    },
+    "ideal_conditional_histogram": {
+      "shape": [
+        80
+      ],
+      "dtype": "int64"
+    },
+    "ideal_unconditional_histogram": {
+      "shape": [
+        80
+      ],
+      "dtype": "int64"
+    },
+    "ideal_quadrature_scatter": {
+      "shape": [
+        5000,
+        4
+      ],
+      "dtype": "float64"
+    },
+    "distorted_output": {
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "complex128"
+    },
+    "distorted_fourier": {
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "complex128"
+    },
+    "distorted_homodyne": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "distorted_alice": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "distorted_residual": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "distorted_p": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "distorted_rotated_alice": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "distorted_signal": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "distorted_calibration": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "distorted_conditional_y": {
+      "shape": [
+        7947
+      ],
+      "dtype": "float64"
+    },
+    "distorted_histogram_edges": {
+      "shape": [
+        81
+      ],
+      "dtype": "float64"
+    },
+    "distorted_conditional_histogram": {
+      "shape": [
+        80
+      ],
+      "dtype": "int64"
+    },
+    "distorted_unconditional_histogram": {
+      "shape": [
+        80
+      ],
+      "dtype": "int64"
+    },
+    "distorted_quadrature_scatter": {
+      "shape": [
+        5000,
+        4
+      ],
+      "dtype": "float64"
+    },
+    "analytic_output": {
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "complex128"
+    },
+    "analytic_fourier": {
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "complex128"
+    },
+    "analytic_homodyne": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "analytic_alice": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "analytic_residual": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "analytic_p": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "analytic_rotated_alice": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "analytic_signal": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "analytic_calibration": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "analytic_conditional_y": {
+      "shape": [
+        8004
+      ],
+      "dtype": "float64"
+    },
+    "analytic_histogram_edges": {
+      "shape": [
+        81
+      ],
+      "dtype": "float64"
+    },
+    "analytic_conditional_histogram": {
+      "shape": [
+        80
+      ],
+      "dtype": "int64"
+    },
+    "analytic_unconditional_histogram": {
+      "shape": [
+        80
+      ],
+      "dtype": "int64"
+    },
+    "analytic_quadrature_scatter": {
+      "shape": [
+        5000,
+        4
+      ],
+      "dtype": "float64"
+    },
+    "optimized_output": {
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "complex128"
+    },
+    "optimized_fourier": {
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "complex128"
+    },
+    "optimized_homodyne": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "optimized_alice": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "optimized_residual": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "optimized_p": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "optimized_rotated_alice": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "optimized_signal": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "optimized_calibration": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "optimized_conditional_y": {
+      "shape": [
+        7990
+      ],
+      "dtype": "float64"
+    },
+    "optimized_histogram_edges": {
+      "shape": [
+        81
+      ],
+      "dtype": "float64"
+    },
+    "optimized_conditional_histogram": {
+      "shape": [
+        80
+      ],
+      "dtype": "int64"
+    },
+    "optimized_unconditional_histogram": {
+      "shape": [
+        80
+      ],
+      "dtype": "int64"
+    },
+    "optimized_quadrature_scatter": {
+      "shape": [
+        5000,
+        4
+      ],
+      "dtype": "float64"
+    },
+    "lossy_output": {
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "complex128"
+    },
+    "lossy_fourier": {
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "complex128"
+    },
+    "lossy_homodyne": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "lossy_alice": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "lossy_residual": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "lossy_p": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "lossy_rotated_alice": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "lossy_signal": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "lossy_calibration": {
+      "shape": [
+        100000
+      ],
+      "dtype": "float64"
+    },
+    "lossy_conditional_y": {
+      "shape": [
+        7847
+      ],
+      "dtype": "float64"
+    },
+    "lossy_histogram_edges": {
+      "shape": [
+        81
+      ],
+      "dtype": "float64"
+    },
+    "lossy_conditional_histogram": {
+      "shape": [
+        80
+      ],
+      "dtype": "int64"
+    },
+    "lossy_unconditional_histogram": {
+      "shape": [
+        80
+      ],
+      "dtype": "int64"
+    },
+    "lossy_quadrature_scatter": {
+      "shape": [
+        5000,
+        4
+      ],
+      "dtype": "float64"
+    },
+    "test_eta_distorted": {
+      "shape": [
+        24
+      ],
+      "dtype": "float64"
+    },
+    "test_eta_analytic": {
+      "shape": [
+        24
+      ],
+      "dtype": "float64"
+    },
+    "test_eta_optimized": {
+      "shape": [
+        24
+      ],
+      "dtype": "float64"
+    },
+    "robustness_displacements_m": {
+      "shape": [
+        13
+      ],
+      "dtype": "float64"
+    },
+    "robustness_aberrations_rad": {
+      "shape": [
+        11
+      ],
+      "dtype": "float64"
+    },
+    "robustness_distorted": {
+      "shape": [
+        11,
+        13
+      ],
+      "dtype": "float64"
+    },
+    "robustness_analytic": {
+      "shape": [
+        11,
+        13
+      ],
+      "dtype": "float64"
+    },
+    "robustness_optimized": {
+      "shape": [
+        11,
+        13
+      ],
+      "dtype": "float64"
+    },
+    "quantum_transmissivity": {
+      "shape": [
+        11
+      ],
+      "dtype": "float64"
+    },
+    "quantum_mean_theory": {
+      "shape": [
+        11
+      ],
+      "dtype": "float64"
+    },
+    "quantum_mean_empirical": {
+      "shape": [
+        11
+      ],
+      "dtype": "float64"
+    },
+    "quantum_variance_theory": {
+      "shape": [
+        11
+      ],
+      "dtype": "float64"
+    },
+    "quantum_variance_empirical": {
+      "shape": [
+        11
+      ],
+      "dtype": "float64"
+    }
+  },
+  "artifacts": {
+    "arrays/data.npz": {
+      "bytes": 30268674,
+      "sha256": "5b204e1a766b2335d1ac706d1dcae11d1644b38e1696deaf5210cabc27142464"
+    },
+    "arrays/optimized_phase_rad.npy": {
+      "bytes": 131200,
+      "sha256": "2c46467aab5b610ca9ef2cfbc10f58764ddb49fb088e2cc49a9c1d88f0ba97dc"
+    },
+    "config.json": {
+      "bytes": 1047,
+      "sha256": "4f08531afb05b6f7a9d85a07eb1b647a1584342555c83ebed08142ef5d708239"
+    },
+    "figures/01_architecture.png": {
+      "bytes": 168928,
+      "sha256": "52f2cea7350bd36f3016c5f969ea2545f9a394b63287503289407cc94a7c63d3"
+    },
+    "figures/01_architecture.svg": {
+      "bytes": 8619,
+      "sha256": "8496d4e75e4e920890bdabc7098a7d5067502ad822b817fe7268e8bfeb62c815"
+    },
+    "figures/02_fields.png": {
+      "bytes": 353536,
+      "sha256": "7dc1872cbf3f52d76de693f3d815de5b293a1b97361b8dba635f26b20cace647"
+    },
+    "figures/02_fields.svg": {
+      "bytes": 244743,
+      "sha256": "cbd362d30b42aa1d2edf3f605c6c365efc4548501a1278c1972c6354660b15df"
+    },
+    "figures/03_comparison.png": {
+      "bytes": 332747,
+      "sha256": "809348757f7028276e7d9cdd4a4ec24820d3bad363fb69defc19017c15bf9016"
+    },
+    "figures/03_comparison.svg": {
+      "bytes": 238509,
+      "sha256": "4290571b0d0d0afea6e1a6bf75185fa5f251aaef95f1029ec42a0f736fff6cd7"
+    },
+    "figures/04_mask.png": {
+      "bytes": 218611,
+      "sha256": "4e1297d0e89f14b4fe71b1fd722c316b304e71e598f5e49d66bac3c4d4a4f19d"
+    },
+    "figures/04_mask.svg": {
+      "bytes": 132349,
+      "sha256": "e57bd577559523aabde74322fff23fc2b7835bf39f641d682f2aa84709bdc23f"
+    },
+    "figures/05_learning.png": {
+      "bytes": 226872,
+      "sha256": "ff1433182219a5187c5a79cab69b26b1150e50cedfdb72d5947fa324e1b8d4ae"
+    },
+    "figures/05_learning.svg": {
+      "bytes": 50233,
+      "sha256": "7fc897dc302201b4baa7544e501548e4023e0da2277c85b428c2b0fa9af5981b"
+    },
+    "figures/06_robustness.png": {
+      "bytes": 142209,
+      "sha256": "bd2c6bff67692649125cab8a2e2b1b67b6fc200fdc05c4c78a42f1d04fc6aa91"
+    },
+    "figures/06_robustness.svg": {
+      "bytes": 111594,
+      "sha256": "0ce697d301226cc971b9ba6f388f49114f02170340fcd1f52daaf11d7be2e866"
+    },
+    "figures/07_homodyne.png": {
+      "bytes": 953728,
+      "sha256": "f030c2fd542f67260be966f2952391a0e1516aa6e33fa30cd2d58fd13a5af723"
+    },
+    "figures/07_homodyne.svg": {
+      "bytes": 479461,
+      "sha256": "fcac8f9c7485eed68836e79f4ae708a1080d396a61e52c55e589397bbf63b36b"
+    },
+    "figures/08_variance.png": {
+      "bytes": 116035,
+      "sha256": "abd5fd16c81623a5375e6ec9b38021ea117e428a700ecece14855b24dac068c0"
+    },
+    "figures/08_variance.svg": {
+      "bytes": 15946,
+      "sha256": "28577efcac46ed9070b7c1bd36e160d1c527957c4f69524cb9c19e7637ce1e40"
+    },
+    "figures/09_snr.png": {
+      "bytes": 190737,
+      "sha256": "d03316aa1032cc266844486c09f0843d8d675089b87f08a19e9df701b928af9f"
+    },
+    "figures/09_snr.svg": {
+      "bytes": 32649,
+      "sha256": "ac31055be74ed53218504d69f1fae6ef8d353d672e5399f576dce09ef24c618b"
+    },
+    "figures/10_quantum.png": {
+      "bytes": 196367,
+      "sha256": "18a59be2a4bbfff9c98c6f1263bd9fe46e33f7fb13c5d4db4d2d64c5f83cfc79"
+    },
+    "figures/10_quantum.svg": {
+      "bytes": 26786,
+      "sha256": "edcd5177ada5b3a4c802a71bb0f70e899fea120fe50ba4befe523ed839b29821"
+    },
+    "logs/environment.txt": {
+      "bytes": 4232,
+      "sha256": "67b9fdc4c98823d3a409942f1c4658e48aea6b160d824abcd0d8931e1a87c131"
+    },
+    "logs/tests.txt": {
+      "bytes": 2071,
+      "sha256": "61ae8f4b3785216ffcf3a1a2bc08da5781e14cb03780a96e12f0c756c3cf80e1"
+    },
+    "metrics.json": {
+      "bytes": 14260,
+      "sha256": "dc631b9a680b3f6a1460d9dfcb146695bcc9f6c44083855247dd06c3dc46fe23"
+    },
+    "report.html": {
+      "bytes": 17131,
+      "sha256": "2d83609c9f0f0c1392d349aadffcedf47e728f5a2ca05a23591dfcd2bf8c6b53"
+    },
+    "report.md": {
+      "bytes": 14053,
+      "sha256": "e33733172675e5ecc25365aa9a5e63aea5cc2db98f23f179c5a1c73e09b8817d"
+    },
+    "tables/cases.csv": {
+      "bytes": 1050,
+      "sha256": "94fd0527fa2487b6df2658908eb126886b0c72304d2ac715a611caaae8aee9b7"
+    }
+  },
+  "source_revision_note": "Historical parent-workspace revision, not the implementation revision; source was uncommitted then. Published Git history records the standalone implementation.",
+  "publication_redactions": [
+    "Absolute interpreter path made project-relative",
+    "Hostname and local paths removed from environment/test logs; their checksums updated. Numerical arrays, metrics, plots and reports unchanged."
+  ]
+}

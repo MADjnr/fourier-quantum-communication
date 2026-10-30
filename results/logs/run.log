@@ -1,0 +1,10 @@
+2026-10-29 22:12:07,075 INFO Starting CPU-compatible experiment
+2026-10-29 22:12:10,330 INFO --- Propagating using ASM method ---
+2026-10-29 22:12:11,815 INFO Rendering ten figure pairs
+2026-10-29 22:12:21,418 INFO Complete: results/report.html
+2026-10-29 22:24:40,591 INFO Rendering ten figure pairs
+2026-10-29 22:24:48,997 INFO Complete: results/report.html
+2026-10-29 22:25:46,396 INFO Starting CPU-compatible experiment
+2026-10-29 22:25:51,268 INFO --- Propagating using ASM method ---
+2026-10-29 22:25:54,933 INFO Rendering ten figure pairs
+2026-10-29 22:26:06,304 INFO Complete: results/report.html

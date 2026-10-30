@@ -1,0 +1,29 @@
+grid:
+  n: 128
+  dx: 0.000012
+  wavelength: 0.00000155
+  focal_length: 0.1
+waist: 0.00022
+pupil_radius: 0.003
+channel_transmission: 0.8
+detector_efficiency: 0.9
+lossy_transmission: 0.08
+torch_threads: 2
+optimization:
+  iterations: 100
+  learning_rate: 0.08
+  initializations: 3
+  train_size: 12
+  validation_size: 12
+  test_size: 24
+  train_seed: 101
+  validation_seed: 202
+  test_seed: 303
+  initialization_seed: 404
+homodyne:
+  n_symbols: 100000
+  modulation: 4.0
+  xi_rec: 0.02
+  v_el: 0.01
+  seed: 505
+  compensate_phase: true

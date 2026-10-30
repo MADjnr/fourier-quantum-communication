@@ -1,0 +1,50 @@
+{
+  "grid": {
+    "n": 128,
+    "dx": 1.2e-05,
+    "wavelength": 1.55e-06,
+    "focal_length": 0.1
+  },
+  "waist": 0.00022,
+  "pupil_radius": 0.003,
+  "distortion_mean": {
+    "displacement_x": 9e-05,
+    "displacement_y": -3.5e-05,
+    "tilt_x": 0.00065,
+    "tilt_y": -0.00025,
+    "defocus": 1.4,
+    "astigmatism": 0.7
+  },
+  "distortion_std": {
+    "displacement_x": 1.8e-05,
+    "displacement_y": 1.2e-05,
+    "tilt_x": 0.0001,
+    "tilt_y": 8e-05,
+    "defocus": 0.25,
+    "astigmatism": 0.18
+  },
+  "optimization": {
+    "iterations": 100,
+    "learning_rate": 0.08,
+    "initializations": 3,
+    "train_size": 12,
+    "validation_size": 12,
+    "test_size": 24,
+    "train_seed": 101,
+    "validation_seed": 202,
+    "test_seed": 303,
+    "initialization_seed": 404
+  },
+  "homodyne": {
+    "n_symbols": 100000,
+    "modulation": 4.0,
+    "xi_rec": 0.02,
+    "v_el": 0.01,
+    "seed": 505,
+    "compensate_phase": true
+  },
+  "channel_transmission": 0.8,
+  "detector_efficiency": 0.9,
+  "lossy_transmission": 0.08,
+  "torch_threads": 2
+}
