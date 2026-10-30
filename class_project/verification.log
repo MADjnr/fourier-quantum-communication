@@ -1,0 +1,11 @@
+test_artifact_contract (test_demo.DemoTests.test_artifact_contract) ... ok
+test_continuum_predictions (test_demo.DemoTests.test_continuum_predictions) ... ok
+test_normalization_and_parseval (test_demo.DemoTests.test_normalization_and_parseval) ... ok
+test_phase_bound_is_attained_and_magnitude_preserved (test_demo.DemoTests.test_phase_bound_is_attained_and_magnitude_preserved) ... ok
+test_shift_theorem_sign_and_fractional_displacement (test_demo.DemoTests.test_shift_theorem_sign_and_fractional_displacement) ... ok
+test_two_plane_removal_recovers_complex_target (test_demo.DemoTests.test_two_plane_removal_recovers_complex_target) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 2.123s
+
+OK

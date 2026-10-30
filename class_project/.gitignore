@@ -1,0 +1,9 @@
+.venv/
+.mplconfig/
+__pycache__/
+output_reproduced/
+!output/
+!output/*.png
+!output/*.npz
+!output/*.json
+!verification.log

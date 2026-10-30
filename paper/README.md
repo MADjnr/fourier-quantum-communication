@@ -1,4 +1,8 @@
-# IEEE-style research manuscript
+# Full research extension: IEEE-style manuscript
+
+**For the primary classroom project, start with the [class paper](../class_project/paper.pdf), [four-page recitable script](../class_project/speaking-script.pdf), and [class project guide](../docs/CLASS_PROJECT_GUIDE.md).** No training or quantum prerequisite is needed for that standalone deterministic demo.
+
+This directory preserves the fuller research manuscript and its longer companion. Its jittered ensemble results, extra distortions, training comparisons, and quantum/noise modeling are separate from the new classroom calculations. In particular, the class single-plane overlap 0.623926 and two-plane overlap 1.000000 are known-input examples, not revised research test averages. The [preserved research overview](../docs/RESEARCH_OVERVIEW.md) retains the previous repository entrypoint.
 
 **Fourier-Domain Spatial-Mode Conditioning for Coherent Optical Communication: A Reproducible Numerical Study**  
 **Authors:** Afam Madu and Tofayel Karim

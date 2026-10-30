@@ -1,0 +1,103 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=20mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Training-free Fourier optics}
+\fancyhead[R]{Classroom speaking script}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{7pt}
+\newcommand{\cue}[1]{{\small\color{blue!55!black}\textit{[#1]}}}
+\newcommand{\asset}[1]{{\small\texttt{\detokenize{#1}}}}
+\begin{document}
+\begin{center}
+{\Large\bfseries Why one phase plate has a limit}\\[5pt]
+{\large A classroom story in four figures}\\[4pt]
+Afam Madu and Tofayel Karim
+\end{center}
+\cue{Read the paragraphs aloud. Bracketed directions and filenames are pointing cues, not spoken text. Display the class paper's figures alongside this script.}
+
+\section*{1. A beam, a target, and two different jobs}
+\asset{01_optical_schematic.png}
+
+Imagine that a receiver expects a particular spot of light: round, brightest at the center, and smoothly fading toward the edges. This is our Gaussian target. Our question is simple: if the arriving beam is in the wrong place, or its wavefront is curved incorrectly, can a transparent phase plate make it match that target?
+
+To answer that, we need two ideas. Intensity tells us how bright the light is. Phase tells us where the light is in its wave cycle. Two beams can have the same brightness pattern but different phase patterns, so matching their pictures is not enough. A phase plate changes the local timing of the wave, not its local amplitude at the plate. Think of turning little clock hands without changing their lengths.
+
+We score the result using normalized power overlap, called eta. It is the fraction in the target spatial pattern after normalizing the fields' powers. One means a perfect match, apart from an irrelevant overall phase. It is not a measure of how much total power survives: in our lossless example all the beams keep the same total power, even when the overlap is poor.
+
+\cue{Follow Figure 1 from left to right.}
+The pale-blue boxes show the order of operations, not measured data. There are no numerical axes or color scale. The input enters on the left. An optional upstream phase plate acts before the first lens. The first lens gives us the Fourier plane, where a second phase plate acts. The last lens transforms the light back to an output image.
+
+A Fourier transform is a way of describing a pattern by its spatial ingredients, rather like describing a musical sound by its notes. Here the ingredients are waves across space, not sound frequencies. The lenses let us work on those ingredients and then combine them again. The lower line shows four focal-length spacings, hence the name ``4f relay.'' The drawing is not to scale.
+
+Our calculation deliberately stays narrow: one known beam, displacement alone, and displacement plus defocus. There is no imposed tilt, no astigmatism, and no finite pupil clipping the light. There is no training, optimizer, random sweep, or quantum calculation. The correction formulas are known in advance. Let us first see the case where one plate is enough.
+
+\newpage
+\section*{2. Displacement: the easy case}
+\asset{02_displacement_only.png}
+
+\cue{Show Figure 2, ``Displacement only: a positive Fourier ramp restores the target.'' Point to the first three panels.}
+The first panel is the target intensity. The second is the displaced input: the same Gaussian shape, but moved sideways. The third is the output after the Fourier-plane correction. All three horizontal axes are x and all three vertical axes are y, in millimeters. Their shared color scale is intensity divided by the target's peak intensity. Dark purple or almost black means low intensity; orange through pale yellow means brighter light. The same scale makes the comparison fair.
+
+The target has a field radius of 220 micrometers. The input moves by 90 micrometers in x and minus 35 micrometers in y. We use light at 1550 nanometers and lenses with a focal length of 100 millimeters. Those numbers define one example, not a survey of all possible beams.
+
+\cue{Point to the fourth, rightmost panel.}
+This graph cuts through the images along y equals zero. Its horizontal axis is x in millimeters. Its vertical axis is again intensity divided by the target peak. The black dashed curve is the target, the orange solid curve is the displaced beam, and the blue dotted curve is the corrected output. The black and blue curves lie on top of each other. Because the displaced beam also moves in y, its y-equals-zero cut does not pass through its own peak. That lower orange peak does not mean that power has been lost.
+
+Why does this correction work? Moving a beam does not change the strengths of its Fourier ingredients. It changes their phases in a very regular way: a linear ramp. So we add the opposite ramp in the Fourier plane. When the ingredients recombine, the beam moves back into place. Under our forward-transform sign convention, the correcting ramp has a positive sign. This is a direct use of the Fourier shift theorem, not a learned answer.
+
+The title gives the overlap: about 0.8248 before correction and 1.0000 afterward. In the saved calculation, the full complex field also returns to the target to numerical precision. That last check matters: the intensity pictures alone would not establish phase recovery.
+
+We have not amplified the light. We have rearranged its phase so that it matches the receiver's desired pattern. And ``one'' here is a result for an ideal mathematical model, not a promise of perfect alignment or lossless components in a laboratory.
+
+Now let us keep the displacement but add a curved phase pattern, called defocus. The initial brightness stays the same, because we have changed phase only. But something important happens to the Fourier ingredients.
+
+\newpage
+\section*{3. Defocus reveals what one plate cannot do}
+\asset{03_spectral_amplitude_limit.png}
+
+\cue{Show Figure 3, ``A Fourier phase plate cannot repair spectral amplitude mismatch.''}
+The defocus is a phase that grows quadratically with distance from the optical axis. You can picture a bowl-shaped timing pattern across the light. Its strength is set by the known coefficient 1.4 radians in our formula. Importantly, the bowl is centered on the optical axis, not on the displaced beam. Together, displacement and this phase both broaden the spectrum and move its center, even though we have not imposed a separate tilt.
+
+\cue{Point to the first and second image panels.}
+These are not output brightness images. They show Fourier-plane field amplitude: the lengths of our little clock hands, before squaring them to obtain intensity. The left panel is the target spectral amplitude. The middle panel is the displaced-and-defocused spectral amplitude. The horizontal and vertical axes are physical Fourier-plane positions, x-F and y-F, in millimeters. They are not spatial-frequency axes. The lens converts spatial frequency to position in this plane.
+
+Both panels use the target spectral peak as their common normalization. The color bar runs from dark purple for low amplitude, through green, to yellow for high amplitude. The distorted spectrum is broader, shifted, and differently peaked. Its amplitude distribution no longer matches the target's.
+
+\cue{Point to the right-hand line graph.}
+Here we take a horizontal slice at y-F equals zero. The horizontal axis is x-F in millimeters and the vertical axis is amplitude divided by the target spectral peak. Black dashed is the target, orange solid is before the mask, and blue dotted is after the best possible phase-only mask. Orange and blue coincide. That is the central observation: the phase plate changes phases, but cannot change amplitude at the plane where it acts.
+
+We do give the single plate every possible advantage. We know the entire input field and directly align every Fourier component's phase with the target phase. There is no failed optimizer to blame. Once all components are aligned, no other phase choice can make their contributions add more strongly. But their lengths are still wrong, so perfect matching remains impossible.
+
+For this particular input, the best attainable single-plane power overlap is about 0.6239. This ceiling is calculated using the whole two-dimensional spectrum, not just the slice on the screen. The uncorrected overlap was about 0.5195, so the phase plate helps, but stops short of one.
+
+This is a limit on a \emph{fixed input entering one Fourier-plane phase plate}. It is not a limit on every possible optical system. That distinction suggests the next move: change the field before it reaches that plane.
+
+\newpage
+\section*{4. Two locations, not just two plates}
+\asset{04_correction_comparison.png}
+
+\cue{Show Figure 4. Read the four column titles from left to right.}
+The columns are Target, Uncorrected, Best single plane, and Two planes. They compare the same displaced-and-defocused input, not different training or testing examples. In the top row we see output intensity. Every image has x and y axes in millimeters and the same target-peak normalization. As before, dark purple is dim and pale yellow is bright. The two-plane result reproduces the target spot; the best single-plane result cannot fully do so.
+
+\cue{Move to the middle row.}
+Now the images show the field's phase in radians, using a cyclic color scale from minus pi to plus pi. The purple-blue and reddish tones distinguish phases, not brightness or power. The pale ends of this cyclic scale represent the same wave timing after a complete turn; the dark region around zero represents another phase. Read the color bar rather than treating a warmer color as ``better.'' Phase is hidden wherever the intensity is below one ten-thousandth of the target peak, because phase in almost-dark pixels is not useful to interpret. The target and recovered field have matching, flat phase in their visible regions. These panels explain why we inspect phase as well as intensity.
+
+\cue{Point to the bottom horizontal bars.}
+The horizontal axis is normalized power overlap, and the vertical labels name the cases. Orange is uncorrected, about 0.5195; blue is the best single plane, about 0.6239; green is two planes, 1.0000. The blue dashed vertical line is the single-plane ceiling. The blue bar reaches it. The green bar exceeds it without violating it, because the upstream plate changes the field to which that ceiling applied.
+
+Here is the whole two-step correction. First, at the input plane, apply the negative of the known quadratic phase. That removes the defocus and leaves only a displaced Gaussian. Then, in the Fourier plane, apply the positive displacement ramp from our easy case. We are back to the target. Two plates placed together in the same Fourier plane would merely add their phases; they would still leave its amplitude unchanged. Location is essential.
+
+The numerical checks conserve power and compare the calculated overlaps with independent Gaussian formulas. Recovery is checked for the complex field, not only for the pictures. Still, these are simulations with exactly known distortions: no finite aperture, plate imperfections, unknown fluctuations, or measured hardware is included. Two planes solve this chosen family, not every possible distorted beam.
+
+The larger research project studies additional distortions, random jitter, training comparisons, and receiver noise. Its test averages are separate evidence; our deterministic values do not replace them. No quantum background is needed for today's conclusion: \textbf{one Fourier phase plate can fix phase but cannot reshape the spectral amplitude arriving at it. A correctly placed upstream plate changes what arrives, and that changes what is possible.}
+\end{document}

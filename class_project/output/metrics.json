@@ -1,0 +1,58 @@
+{
+  "parameters": {
+    "n": 256,
+    "dx": 1.2e-05,
+    "wavelength": 1.55e-06,
+    "focal_length": 0.1,
+    "waist": 0.00022,
+    "displacement_x": 9e-05,
+    "displacement_y": -3.5e-05,
+    "defocus": 1.4
+  },
+  "numerical": {
+    "displacement_uncorrected": 0.8247579833029632,
+    "displacement_corrected": 1.0,
+    "defocus_uncorrected": 0.5195453715953674,
+    "single_plane_bound": 0.6239259445257396,
+    "two_plane": 1.0
+  },
+  "continuum": {
+    "displacement_uncorrected": 0.8247579833029628,
+    "displacement_corrected": 1.0,
+    "defocus_uncorrected": 0.5195453715953667,
+    "single_plane_bound": 0.6239259445257389,
+    "two_plane": 1.0
+  },
+  "absolute_errors": {
+    "displacement_uncorrected": 4.440892098500626e-16,
+    "displacement_corrected": 0.0,
+    "defocus_uncorrected": 6.661338147750939e-16,
+    "single_plane_bound": 6.661338147750939e-16,
+    "two_plane": 0.0
+  },
+  "phase_bound_direct": 0.6239259445257388,
+  "power": {
+    "target": 1.0,
+    "displaced": 0.9999999999999997,
+    "shift_corrected": 0.9999999999999997,
+    "aberrated": 0.9999999999999997,
+    "single": 0.9999999999999997,
+    "two": 0.9999999999999997
+  },
+  "fourier_power": {
+    "target": 1.0,
+    "displaced": 0.9999999999999996,
+    "shift_corrected": 0.9999999999999998,
+    "aberrated": 0.9999999999999998,
+    "single": 0.9999999999999998,
+    "two": 0.9999999999999998
+  },
+  "two_plane_relative_field_error": 4.4465354792345865e-16,
+  "shift_relative_field_error": 4.254658972826531e-16,
+  "environment": {
+    "python": "3.11.12",
+    "numpy": "2.4.6",
+    "matplotlib": "3.11.2"
+  },
+  "model": "Ideal lossless scalar 4f; inverse-image convention; no pupil, tilt or astigmatism; known fixed distortions"
+}
