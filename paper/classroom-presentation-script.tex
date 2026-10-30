@@ -1,0 +1,115 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=0.7in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlength{\emergencystretch}{1em}
+\newcommand{\cue}[1]{\par\textbf{#1}\par}
+\newcommand{\stage}[1]{\textit{[#1]}}
+\raggedbottom
+\begin{document}
+\begin{center}
+{\Large\bfseries Classroom Presentation Script}\\[3pt]
+{\normalsize Fourier-Domain Spatial-Mode Conditioning for Coherent Optical Communication}\\[3pt]
+Work by Afam Madu and Tofayel Karim
+\end{center}
+\textit{Read the paragraphs aloud; bracketed directions are actions, not spoken words. Display the paper's figures alongside this script. Figure numbers follow the paper, and headings use the titles printed on the plots.}
+
+\cue{Opening story: receiving light is not the same as receiving its message}
+Imagine a choir whose singers all know the correct note, but some sing out of step. The sound is still there, yet it does not combine as intended. Light also has a strength and a rhythm. We call its strength pattern \emph{intensity}, and its position within an oscillation cycle \emph{phase}. Our question is whether adjusting this phase can make distorted light fit a receiver better, without adding more light.
+
+The receiver has a reference beam called a \emph{local oscillator}, or LO. Think of it as the conductor's reference rhythm, extended across the beam. A \emph{spatial mode} is the beam's shape and phase pattern. Good reception requires the incoming mode to match the reference. We test this in a computer simulation, not a laboratory experiment.
+
+\cue{Figure 1 --- 4f architecture and model boundary}
+\stage{Trace the diagram from source to receiver, then point to the model boundary.}
+The source is a smooth, bell-shaped Gaussian beam. Displacement moves it sideways; tilt changes its direction; defocus and astigmatism distort its phase. The first lens maps the beam into a Fourier plane. Like separating a musical chord into notes, this separates a spatial pattern into spatial-frequency components: slowly or rapidly varying features across the beam. These are not different colors of light.
+
+At that plane, a pupil limits what passes, and a phase mask changes the timing of the components. The second lens recombines them. We model this as an ideal Fourier transform and its inverse. The name 4f refers to the usual two-lens relay geometry. The diagram then changes models: optical propagation supplies coupling, and a separate Gaussian-noise model predicts the receiver measurement. We do not simulate every quantum property of the whole apparatus.
+
+\cue{Figure 2 --- Spatial intensity and phase}
+\stage{Point left to right across the top row, then across the bottom row.}
+The columns show the source, the Fourier plane \emph{before} the mask, and the optimized detector field. The top row shows intensity; the bottom shows phase. The horizontal and vertical axes are positions in millimeters. Read the color bars: intensity color means strength, while phase color means position around an oscillation cycle. Phase is hidden where the field is too weak to interpret meaningfully.
+
+The Fourier-plane and detector-plane scales are different, even though the arrays have equal pixel counts. A dim-looking Fourier panel does not mean energy vanished: power must be summed using each plane's physical pixel area. This is why we checked normalization before trusting any optimization.
+
+\cue{Figure 3 --- Correction comparison and residual phase}
+\stage{Compare the three columns: distorted, analytic, optimized.}
+The top row shows received intensity. The bottom shows phase relative to the LO after removing one overall phase offset. The analytic mask is a formula-based correction; the optimized mask is learned numerically. Overlap is a shape-matching score between zero and one, separate from how much power survives. For this example, overlap rises from about 0.409 without correction to 0.453 with either correction. Almost all optical power survives these three cases, so the benefit is better matching, not amplification. This is one example, not yet proof that the method works on unseen distortions.
+
+\newpage
+\cue{Act II: learning a correction, then giving it an honest exam}
+We have shown that correction can help one field. Now we ask how the mask was chosen and whether its benefit survives beyond that example. Think of training as practice problems, validation as a mock exam used to choose a solution, and testing as a final exam that must stay unseen.
+
+\cue{Figure 4 --- Optimized Fourier-plane phase mask}
+\stage{Point to the phase map on the left and the histogram on the right.}
+The left panel is the learned correction recipe. Position is on the two axes, and color represents phase in radians. Like asking different choir members to shift their timing, the mask changes phase rather than adding amplitude. Phase wraps around a full cycle, so a color jump near minus pi and plus pi need not be a physical discontinuity in the optical action.
+
+The right panel counts how many pixels have each phase value. It includes pixels outside the pupil and pixels receiving little light. A large count therefore does not mean that phase contributes strongly to reception. This is a continuous numerical phase map, not a manufactured device or an etching-depth drawing.
+
+\cue{Figure 5 --- Training and held-out validation}
+\stage{Point to iteration on the horizontal axes and overlap on the vertical axes.}
+The left panel shows performance on training fields; the right shows performance on separate validation fields. Each curve is a different starting point for the optimizer. Higher overlap is better. There are twelve training distortions, twelve validation distortions, and three optimization starts, each run for one hundred updates. The shaded range shows variation among starts; it is not a statistical confidence interval.
+
+We keep the mask with the best validation score, not simply the last update. The saved best checkpoint is labeled initialization two, iteration fifty-four; those labels count from zero. Its validation overlap is about 0.456. Validation helps choose the mask, so validation performance alone is not an independent final result.
+
+\cue{The final exam: paper Table III, not another learning curve}
+\stage{Show Table III or state these results before moving to Figure 6.}
+On twenty-four unseen distortions, mean overlap is about 0.431 without correction, 0.470 with the fixed analytic mask, and 0.470 with the trained mask. We compare methods on the \emph{same} distortions, like comparing two runners on the same courses rather than on different hills.
+
+The trained-minus-uncorrected improvement is about 0.039, with a ninety-five-percent confidence interval from 0.0358 to 0.0422. This supports improvement for the tested distribution. Against analytic correction, the interval runs from about minus 0.00137 to plus 0.00191. Because it includes zero, we cannot establish that training is better. That is not proof the methods are identical. Also, the analytic mask stays fixed: it is not recomputed for each test input.
+
+\cue{Figure 6 --- Misalignment and aberration robustness}
+\stage{Compare the three heatmaps using their shared zero-to-one color scale.}
+The horizontal axis is sideways displacement in micrometers; the vertical axis is defocus strength in radians. Color shows overlap. All other distortion settings stay fixed, and neither mask is retrained at each point. Think of these as terrain maps: they show where a receiver works well and where it struggles, not just its performance at one address.
+
+The result depends on the operating point. These maps are not probabilities, confidence regions, or a guarantee of improvement everywhere. They complement the unseen test examples, but they do not replace them. We have now tested optical matching; next we must check what that matching means for noise.
+
+\newpage
+\cue{Act III: the quantum noise floor is not a volume control}
+A quieter output is not automatically a better output. Turning a radio down reduces the music as well as its audible loudness. Similarly, loss can reduce our received signal without improving its quality. To avoid this mistake, we first check the noise convention independently of the communication experiment.
+
+\cue{Figure 7 --- Gaussian pure-loss validation}
+\stage{Use paper Figure 7, even though its original filename starts with 10. Point to both panels.}
+The horizontal axis is transmissivity: zero means none of the input signal passes, and one means all of it passes. The left panel shows the mean of one measured light-wave component, called a \emph{quadrature}. Think of a quadrature as one projection of an oscillation onto a chosen reference rhythm. The right panel shows its variance, meaning the spread of repeated measurements around their mean.
+
+A coherent state is the ideal laser-like reference used here. Loss makes its mean shrink with the square root of transmissivity. But its intrinsic quadrature variance stays at one \emph{shot-noise unit}. That unit is defined by vacuum fluctuations. Even when the mean disappears at zero transmission, the quantum noise floor does not disappear. The choir analogy explains phase alignment, but this vacuum floor is genuinely quantum, not imperfect singing.
+
+The lines show theory, and the crosses summarize one hundred thousand random NumPy samples at each transmission. Small deviations from one are sampling fluctuations, not noise suppression below the quantum limit. Separately, Strawberry Fields, an independent quantum-software backend, checks the means and covariances of twenty-two vacuum and coherent-state cases. Its agreement is near machine precision. Those backend checks are distinct from the plotted random samples. This figure contains pure loss only, not the extra receiver and electronic noise used next.
+
+\cue{Figure 8 --- Calibrated one-quadrature homodyne}
+\stage{Point to the five distribution panels, then the bottom-right scatter plot.}
+Homodyne detection compares incoming light with the LO to measure one quadrature. Alice is the sender, and Bob is the receiver. Alice varies the prepared quadrature to carry information. Bob sees a reduced version of it plus random noise. Here we assume the overall LO phase is correctly compensated; a real receiver would have to estimate and control that phase.
+
+The five distribution panels represent ideal, distorted, analytic, optimized, and deliberately lossy cases. Their horizontal axis is measured quadrature divided by a separately estimated vacuum standard deviation. Their vertical axis is probability density: taller bars mean values occur more often, not that the beam is brighter. Each case contains one hundred thousand simulated symbols.
+
+Each panel distinguishes three distributions. The unconditional distribution includes all messages and noise. The latent residual isolates the noise because the simulator knows the components it generated; a real receiver does not get that information for free. The conditional distribution selects only symbols for which Alice's value is close to zero. That is like comparing repeated deliveries of nearly the same message, rather than mixing many different messages. The allowed interval has a finite width, so a little signal variation remains. Gaussian curves describe the unconditional distribution and residual, not an exact fit claimed for the finite-bin distribution.
+
+Finally, the scatter plot places Alice's prepared value horizontally and Bob's single measured quadrature vertically. The sloping cloud shows that Bob follows Alice, while its thickness shows noise. It does not mean Bob measured two incompatible quadratures simultaneously. The overall lesson is to distinguish information-bearing variation from unwanted random variation before interpreting a wide or narrow histogram.
+
+\newpage
+\cue{Act IV: deciding what improved, and what cannot be recovered}
+\cue{Figure 9 --- Variance and uncertainty}
+\stage{Point to the case labels, theory crosses, empirical dots, error bars, and vacuum line.}
+The horizontal axis lists the five cases. The vertical axis is unconditional quadrature variance in nominal shot-noise units. Unlike the preceding histogram display, these values are not divided by each case's measured calibration estimate. Crosses are theory, dots are simulated estimates, and error bars are approximate ninety-five-percent intervals from finite sampling. Every theoretical value lies within its corresponding interval. This supports consistency of the sampler with the stated model, not agreement with a laboratory measurement.
+
+The ideal case has the largest variance because it preserves the most message variation. The lossy case approaches the noise floor because most useful signal is gone. That smaller variance is \emph{not} better communication or squeezed light. The error bars also omit uncertainty in the vacuum calibration, so they are not a complete experimental error budget.
+
+\cue{Figure 10 --- SNR and efficiency budget}
+\stage{Explain the left panel first, then the grouped bars on the right.}
+Signal-to-noise ratio, or SNR, compares useful message variation with unwanted noise. On the left, horizontal position is mode overlap and vertical position is theoretical SNR in decibels, a logarithmic scale. Higher is better. In ordinary linear units, the representative SNR rises from about 1.145 without correction to 1.264 with training; analytic correction gives about 1.266. These are representative cases, not the twenty-four-sample test averages.
+
+The right panel explains why overlap alone is not enough. The grouped bars separate optical throughput, mode overlap, channel transmission, detector efficiency, and their product. Think of delivering a parcel: it must survive the journey, reach the correct address, and be accepted. Passing one stage does not compensate for failing another. These efficiencies multiply rather than add, and the plotted cases need not follow one SNR-versus-overlap curve because their throughput differs.
+
+The deliberately lossy case combines half-plane obstruction with attenuation. Only about 6.17 percent of the original power survives the optical system. Even the best unconstrained phase-only alignment could reach only about 0.244 normalized overlap for this damaged field, with a coupled-power ceiling of about 1.51 percent of the original input \emph{before} channel and detector losses. This ceiling comes from mismatched Fourier magnitudes, not merely from an optimizer that stopped early. Retiming the choir cannot bring back missing singers. Likewise, a phase mask cannot restore lost photons or arbitrarily repair amplitude damage.
+
+\cue{Why trust the calculation, and where does that trust stop?}
+\stage{Refer to paper Table IV for the verification checklist.}
+We checked Fourier round trips, physical power normalization, a known Gaussian transform, agreement between numerical implementations, and the gradient actually used to train the mask. We checked held-out evaluation, noise statistics, loss bounds, and independent Gaussian-backend moments. Forty-one automated tests passed, and twenty-nine archived artifacts matched their recorded hashes. Hashes check that saved evidence is unchanged; they do not prove the physical model is correct.
+
+These checks establish numerical consistency, not experimental validation. We still need sampling-convergence studies, broader independent tests, realistic phase-mask constraints, and measured hardware errors. Nor have we calculated a secret-key rate or proved quantum security.
+
+\cue{Closing statement}
+Our story is not that optimization creates more light or removes quantum noise. It is that better spatial phase matching lets the receiver use existing light more effectively. Correction helps over no correction in our tested distribution, but the trained mask is not demonstrably better than a good analytic mask. Keeping that distinction, and the limits imposed by loss, is what makes this a defensible result rather than just an attractive set of plots.
+\end{document}

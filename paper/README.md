@@ -6,6 +6,7 @@
 - [Read the compiled paper](main.pdf)
 - [Editable LaTeX source](main.tex)
 - [Verification and evidence mapping](VERIFICATION.md)
+- [Four-page classroom speaking script (PDF)](classroom-presentation-script.pdf) — beginner-friendly story, analogies, and speaking cues for all ten figures in manuscript order; [editable source](classroom-presentation-script.tex). Read the paragraphs aloud while displaying the paper's figures; bracketed directions are presenter actions.
 
 The paper uses the actual `IEEEtran` journal class, a two-column layout, numbered equations/references, ten figures, and four evidence tables. It is a research manuscript, **not an IEEE publication, accepted submission, or externally peer-reviewed article**. No affiliations, emails, funding statements, or author-contribution claims were invented. Venue-specific requirements and author approval remain necessary before submission.
 
@@ -32,6 +33,8 @@ From this directory, with [Tectonic](https://tectonic-typesetting.github.io/) in
 
 ```sh
 tectonic --keep-logs main.tex
+# Build the separate four-page speaking script:
+tectonic --keep-logs classroom-presentation-script.tex
 ```
 
 The committed PDF was built with Tectonic 0.17.0. Its first build downloads the TeX bundle, IEEEtran, fonts, and packages into a local cache; later builds can reuse that cache. The source also uses standard packages suitable for a conventional TeX installation containing IEEEtran (run `pdflatex main.tex` twice). Only the Tectonic build was exercised for this delivery. References are embedded in the source; BibTeX is not needed. Compile from `paper/` so relative figure paths resolve.
