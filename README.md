@@ -6,6 +6,14 @@
 
 [Read the scientific story](#scientific-story) · [Browse the complete report](results/report.md) · [Reproduce](#reproduce-the-study) · [Numerical evidence](#numerical-evidence) · [Limits](#scope-and-limitations)
 
+## IEEE-style paper
+
+**Afam Madu and Tofayel Karim**, *Fourier-Domain Spatial-Mode Conditioning for Coherent Optical Communication: A Reproducible Numerical Study*.
+
+[Read the paper (PDF)](paper/main.pdf) · [LaTeX source](paper/main.tex) · [Build instructions and figure order](paper/README.md) · [Manuscript verification](paper/VERIFICATION.md)
+
+The two-column IEEEtran manuscript integrates all ten plots in scientific reading order, with equations, results tables, verification evidence, and limitations. It is not an accepted IEEE publication or externally peer-reviewed article.
+
 ## At a glance
 
 | Item | Archived baseline |
