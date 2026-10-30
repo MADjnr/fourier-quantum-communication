@@ -70,6 +70,8 @@ The result depends on the operating point. These maps are not probabilities, con
 \cue{Act III: the quantum noise floor is not a volume control}
 A quieter output is not automatically a better output. Turning a radio down reduces the music as well as its audible loudness. Similarly, loss can reduce our received signal without improving its quality. To avoid this mistake, we first check the noise convention independently of the communication experiment.
 
+Why does this matter for communication? Information is carried by controlled changes in light. If the beam arrives distorted, the receiver can miss part of that information-bearing signal. This simulation lets us compare corrections before building hardware and predict how better matching improves signal-to-noise ratio. It is like adjusting an antenna rather than increasing transmitter power. Such improvements could help an optical link tolerate misalignment or distinguish messages more reliably, but actual error rates, data-rate gains, and secure quantum communication require further testing beyond this study.
+
 \cue{Figure 7 --- Gaussian pure-loss validation}
 \stage{Use paper Figure 7, even though its original filename starts with 10. Point to both panels.}
 The horizontal axis is transmissivity: zero means none of the input signal passes, and one means all of it passes. The left panel shows the mean of one measured light-wave component, called a \emph{quadrature}. Think of a quadrature as one projection of an oscillation onto a chosen reference rhythm. The right panel shows its variance, meaning the spread of repeated measurements around their mean.
